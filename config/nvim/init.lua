@@ -1,6 +1,5 @@
-require('plugins')
-require('status-line')
--- require('treesitter')
-require('lsp')
+require('pkg.rocks')
+require('lsp.config')
+require('lsp.linter')
 
 vim.cmd 'source ~/.vimrc'
