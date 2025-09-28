@@ -1,0 +1,437 @@
+﻿{
+  "version": 1,
+  "language": "English",
+  "hideout_name": "Chaos Hideout",
+  "hideout_hash": 4360,
+  "music_name": "Temple of Chaos",
+  "music_hash": 24671,
+  "doodads": {
+    "Stash": {
+      "hash": 3230065491,
+      "x": 1976,
+      "y": 229,
+      "r": 16203,
+      "fv": 0
+    },
+    "Guild Stash": {
+      "hash": 139228481,
+      "x": 1975,
+      "y": 217,
+      "r": 48564,
+      "fv": 0
+    },
+    "Synthesis Waypoint": {
+      "hash": 3450327289,
+      "x": 1945,
+      "y": 210,
+      "r": 0,
+      "fv": 2
+    },
+    "Ziggurat Map Device": {
+      "hash": 76459657,
+      "x": 1897,
+      "y": 178,
+      "r": 44234,
+      "fv": 0
+    },
+    "Relic Locker": {
+      "hash": 12969733,
+      "x": 1963,
+      "y": 195,
+      "r": 8113,
+      "fv": 0
+    },
+    "Reforging Bench": {
+      "hash": 3263423625,
+      "x": 1958,
+      "y": 276,
+      "r": 59043,
+      "fv": 0
+    },
+    "Salvage Bench": {
+      "hash": 3734046884,
+      "x": 1971,
+      "y": 261,
+      "r": 51307,
+      "fv": 0
+    },
+    "Well": {
+      "hash": 2057229261,
+      "x": 1897,
+      "y": 319,
+      "r": 8867,
+      "fv": 1
+    },
+    "Recombinator": {
+      "hash": 4243958141,
+      "x": 1941,
+      "y": 305,
+      "r": 60680,
+      "fv": 0
+    },
+    "Wardrobe Decoration": {
+      "hash": 2914603195,
+      "x": 1920,
+      "y": 318,
+      "r": 65239,
+      "fv": 0
+    },
+    "Alva": {
+      "hash": 2115859440,
+      "x": 1965,
+      "y": 280,
+      "r": 57424,
+      "fv": 0
+    },
+    "Zelina": {
+      "hash": 1023253651,
+      "x": 1817,
+      "y": 232,
+      "r": 16211,
+      "fv": 0
+    },
+    "Zolin": {
+      "hash": 2204408127,
+      "x": 1831,
+      "y": 253,
+      "r": 13030,
+      "fv": 0
+    },
+    "Doryani": {
+      "hash": 3673653565,
+      "x": 1821,
+      "y": 246,
+      "r": 13846,
+      "fv": 0
+    },
+    "Rog": {
+      "hash": 408811958,
+      "x": 1857,
+      "y": 301,
+      "r": 65210,
+      "fv": 0
+    },
+    "Tujen": {
+      "hash": 1188734792,
+      "x": 1833,
+      "y": 280,
+      "r": 8612,
+      "fv": 0
+    },
+    "Dannig": {
+      "hash": 2939302567,
+      "x": 1864,
+      "y": 292,
+      "r": 61574,
+      "fv": 0
+    },
+    "Gwennen": {
+      "hash": 2230709308,
+      "x": 1840,
+      "y": 290,
+      "r": 8639,
+      "fv": 0
+    },
+    "Ange": {
+      "hash": 2297799330,
+      "x": 1937,
+      "y": 182,
+      "r": 38726,
+      "fv": 0
+    },
+    "Thaumaturge of the Vaal Kiwi Pet": {
+      "hash": 1700354733,
+      "x": 1867,
+      "y": 272,
+      "r": 21798,
+      "fv": 0
+    },
+    "Chaotic Peddler's Rain Hideout Decoration": {
+      "hash": 4252646805,
+      "x": 1979,
+      "y": 240,
+      "r": 0,
+      "fv": 0
+    },
+    "Tumbling Vaal Orb Pet": {
+      "hash": 2532895400,
+      "x": 1933,
+      "y": 200,
+      "r": 0,
+      "fv": 0
+    },
+    "Encampment Table": {
+      "hash": 3258952743,
+      "x": 1849,
+      "y": 282,
+      "r": 39926,
+      "fv": 1
+    },
+    "Chaos Small Ritual Altar": {
+      "hash": 4218608488,
+      "x": 1835,
+      "y": 243,
+      "r": 43296,
+      "fv": 0
+    },
+    "Chaos Rack": {
+      "hash": 952132560,
+      "x": 1839,
+      "y": 183,
+      "r": 24886,
+      "fv": 3
+    },
+    "Chaos Pots": {
+      "hash": 1653428839,
+      "x": 1836,
+      "y": 267,
+      "r": 0,
+      "fv": 0
+    },
+    "Chaos Rack": {
+      "hash": 952132560,
+      "x": 1840,
+      "y": 199,
+      "r": 27657,
+      "fv": 1
+    },
+    "Chaos Rack": {
+      "hash": 952132560,
+      "x": 1856,
+      "y": 176,
+      "r": 8514,
+      "fv": 0
+    },
+    "Chaos Pots": {
+      "hash": 1653428839,
+      "x": 1853,
+      "y": 272,
+      "r": 4576,
+      "fv": 3
+    },
+    "Chaos Rack": {
+      "hash": 952132560,
+      "x": 1938,
+      "y": 310,
+      "r": 61333,
+      "fv": 2
+    },
+    "Encampment Chest": {
+      "hash": 1695295233,
+      "x": 1943,
+      "y": 177,
+      "r": 39956,
+      "fv": 3
+    },
+    "Encampment Equipment": {
+      "hash": 412387213,
+      "x": 1940,
+      "y": 284,
+      "r": 27264,
+      "fv": 0
+    },
+    "Encampment Equipment": {
+      "hash": 412387213,
+      "x": 1930,
+      "y": 172,
+      "r": 24117,
+      "fv": 4
+    },
+    "Encampment Equipment": {
+      "hash": 412387213,
+      "x": 1879,
+      "y": 283,
+      "r": 0,
+      "fv": 3
+    },
+    "Vaal Potted Plants": {
+      "hash": 733910357,
+      "x": 1876,
+      "y": 315,
+      "r": 2871,
+      "fv": 11
+    },
+    "Maraketh Treasure": {
+      "hash": 1078696835,
+      "x": 1967,
+      "y": 208,
+      "r": 0,
+      "fv": 0
+    },
+    "Maraketh Treasure": {
+      "hash": 1078696835,
+      "x": 1976,
+      "y": 238,
+      "r": 0,
+      "fv": 3
+    },
+    "Maraketh Treasure": {
+      "hash": 1078696835,
+      "x": 1957,
+      "y": 198,
+      "r": 0,
+      "fv": 15
+    },
+    "Maraketh Treasure": {
+      "hash": 1078696835,
+      "x": 1962,
+      "y": 201,
+      "r": 0,
+      "fv": 11
+    },
+    "Maraketh Treasure": {
+      "hash": 1078696835,
+      "x": 1965,
+      "y": 236,
+      "r": 0,
+      "fv": 1
+    },
+    "Maraketh Treasure": {
+      "hash": 1078696835,
+      "x": 1961,
+      "y": 206,
+      "r": 0,
+      "fv": 15
+    },
+    "Maraketh Treasure": {
+      "hash": 1078696835,
+      "x": 1969,
+      "y": 242,
+      "r": 0,
+      "fv": 2
+    },
+    "Maraketh Treasure": {
+      "hash": 1078696835,
+      "x": 1963,
+      "y": 227,
+      "r": 51162,
+      "fv": 11
+    },
+    "Maraketh Treasure": {
+      "hash": 1078696835,
+      "x": 1957,
+      "y": 187,
+      "r": 0,
+      "fv": 2
+    },
+    "Vaal Market Table": {
+      "hash": 2451235076,
+      "x": 1825,
+      "y": 218,
+      "r": 51236,
+      "fv": 0
+    },
+    "Vaal Market Fish": {
+      "hash": 2488661481,
+      "x": 606,
+      "y": 394,
+      "r": 49314,
+      "fv": 6
+    },
+    "Vaal Market Fish": {
+      "hash": 2488661481,
+      "x": 632,
+      "y": 445,
+      "r": 47539,
+      "fv": 2
+    },
+    "Vaal Market Fish": {
+      "hash": 2488661481,
+      "x": 627,
+      "y": 456,
+      "r": 0,
+      "fv": 0
+    },
+    "Chaos Stone Blocks": {
+      "hash": 1901393962,
+      "x": 627,
+      "y": 480,
+      "r": 0,
+      "fv": 2
+    },
+    "Chaos Stone Blocks": {
+      "hash": 1901393962,
+      "x": 596,
+      "y": 498,
+      "r": 0,
+      "fv": 1
+    },
+    "Chaos Stone Blocks": {
+      "hash": 1901393962,
+      "x": 617,
+      "y": 518,
+      "r": 50374,
+      "fv": 2
+    },
+    "Chaos Sprout": {
+      "hash": 3417655219,
+      "x": 618,
+      "y": 469,
+      "r": 0,
+      "fv": 0
+    },
+    "Chaos Sprout": {
+      "hash": 3417655219,
+      "x": 596,
+      "y": 482,
+      "r": 0,
+      "fv": 0
+    },
+    "Chaos Sprout": {
+      "hash": 3417655219,
+      "x": 602,
+      "y": 481,
+      "r": 0,
+      "fv": 1
+    },
+    "Chaos Sprout": {
+      "hash": 3417655219,
+      "x": 588,
+      "y": 480,
+      "r": 0,
+      "fv": 0
+    },
+    "Chaos Crawling Leaves": {
+      "hash": 3826371609,
+      "x": 617,
+      "y": 465,
+      "r": 0,
+      "fv": 2
+    },
+    "Chaos Remains": {
+      "hash": 2919762504,
+      "x": 597,
+      "y": 481,
+      "r": 0,
+      "fv": 0
+    },
+    "Maraketh Guard": {
+      "hash": 1668795113,
+      "x": 613,
+      "y": 456,
+      "r": 0,
+      "fv": 0
+    },
+    "Maraketh Guard": {
+      "hash": 1668795113,
+      "x": 627,
+      "y": 447,
+      "r": 53648,
+      "fv": 0
+    },
+    "Maraketh Guard": {
+      "hash": 1668795113,
+      "x": 606,
+      "y": 450,
+      "r": 0,
+      "fv": 3
+    },
+    "Maraketh Incense Burner": {
+      "hash": 279768580,
+      "x": 617,
+      "y": 451,
+      "r": 0,
+      "fv": 0
+    }
+  }
+}
