@@ -24,7 +24,12 @@ const gruvbox_material_disable_italic_comment = 0
 const gruvbox_material_diagnostic_text_highlight = 1
 const gruvbox_material_diagnostic_line_highlight = 1
 
-silent! colorscheme gruvbox-material
+try
+  colorscheme gruvbox-material
+catch
+  " This is a new builtin theme in vim9... what makes this super great is its pretty close to gruvbox outa the box
+  colorscheme retrobox
+endtry
 
 " On Windows, also use ~/.vim instead of vimfiles... Although these days I usually just use WSL
 if s:windows
@@ -49,7 +54,6 @@ if v:version >= 704
 endif
 
 if v:version >= 800 || s:neovim
-  " set listchars=tab:→\ ,trail:·,extends:…,precedes:…
   set listchars=tab:→\ ,trail:·,nbsp:•,extends:…,precedes:…
 endif
 
