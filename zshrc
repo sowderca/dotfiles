@@ -11,19 +11,24 @@ setopt auto_cd
 setopt no_beep
 setopt interactivecomments
 
+os_type="$(builtin command uname)" || echo "$(tput setaf 1)Unable to determine OS\nCheck your zshrc...$(tput sgr0)"
+
 # Ensure zplug installation
 if [[ ! -d ~/.zplug ]]; then
   git clone https://github.com/zplug/zplug ~/.zplug
 fi
 
-fpath=(
-    "${HOME}/.zsh/completion"
-    "$(brew --prefix)/completion/zsh"
-    "$(brew --prefix)/share/zsh/site-functions"
-    $fpath
-)
+# Default functions
+fpath+=("${HOME}/.zsh/completion")
 
-cdpath=($HOME/Developer)
+# Enable homebrew function discovery
+if (($+commands[brew])); then
+  fpath+=("$(brew --prefix)/completion/zsh")
+  fpath+=("$(brew --prefix)/share/zsh/site-functions")
+fi
+
+# Default source code path (Gets a special folder icon on macOS
+cdpath+=($HOME/Developer)
 
 # compinit
 autoload -Uz compinit && compinit
@@ -31,20 +36,17 @@ autoload -U colors && colors
 autoload -U add-zsh-hook
 autoload -U +X bashcompinit && bashcompinit
 
-
 # Source
-source "${HOME}/.fzf.zsh"
-source "${HOME}/.cargo/env"
-source "${HOME}/.zplug/init.zsh"
-source "${HOME}/.local/bin/crawl.zsh"
+[ -f ~/.fzf.zsh ]        && source ~/.fzf.zsh
+[ -f ~/.cargo/env ]      && source ~/.cargo/env
+[ -f ~/.zplug/init.zsh ] && source ~/.zplug/init.zsh
+
+# The following always exist due to dotfile symlink
 source "${HOME}/.local/bin/updatePOB.sh"
 source "${HOME}/.local/bin/sync-devwork.sh"
 source "${HOME}/.local/bin/system-update.sh"
 source "${HOME}/.local/bin/register-completions.zsh"
 source "${HOME}/.local/bin/security.sh"
-source "${HOME}/.iterm2_shell_integration.zsh"
-source "${HOME}/.config/base16-shell/scripts/base16-gruvbox-dark-medium.sh"
-
 
 # Self Manage
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
@@ -69,9 +71,9 @@ zplug "plugins/helm", from:oh-my-zsh, as:plugin
 zplug "plugins/kubectl", from:oh-my-zsh, as:plugin
 zplug "plugins/dotnet", from:oh-my-zsh, as:plugin
 
-
 # Theme
 zplug "mafredri/zsh-async", from:github
+zplug "chriskempson/base16-shell", from:github
 zplug "sowderca/pure", use:pure.zsh, from:github, as:theme
 
 # Install packages that have not yet been installed
@@ -87,12 +89,18 @@ fi
 # Load zplug
 zplug load
 
+# Theme
+base16_gruvbox-dark-medium
+
 # Alias
+alias ai="gh copilot"
 alias cls="clear"
 alias vim="nvim"
+alias bat="bat --theme gruvbox-dark"
 alias dir="ls -lh"
 alias del="rm"
 alias git="hub"
+alias buck="buck2"
 alias chatgpt="aichat"
 alias powershell="pwsh"
 alias pass="read-password"
@@ -103,7 +111,17 @@ alias localip="ipconfig getifaddr en1"
 alias help="tldr"
 alias hackernews="clx"
 
-# PATH setup
+# Add homebrew programs to path.
+if (($+commands[brew])); then
+  path+=("$(brew --prefix)/bin")
+fi
+
+# Add GOPATH binaries to path.
+if (($+commands[go])); then
+  path+=("$(go env GOPATH)/bin")
+fi
+
+# Normal path setup
 path+=("/opt/dsc")
 path+=("/opt/git-tf")
 path+=("/opt/hermes")
@@ -115,16 +133,20 @@ path+=("${HOME}/.tiup/bin")
 path+=("${HOME}/.yarn/bin")
 path+=("${HOME}/.jenv/bin")
 path+=("${HOME}/.local/bin")
-path+=("/opt/homebrew/bin/")
-path+=("$(go env GOPATH)/bin")
 path+=("${HOME}/.fastlane/bin")
 path+=("${HOME}/.dotnet/tools")
 path+=("${HOME}/.pub-cache/bin")
 path+=("${KREW_ROOT:-$HOME/.krew}/bin")
-path+=("${HOME}/Library/Python/3.9/bin")
+path+=("${HOME}/.config/v-analyzer/bin/")
 path+=("${HOME}/.config/yarn/global/node_modules/.bin")
-path+=("/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/")
-path+=("/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/")
+
+if ! [[ -z $os_type ]]; then
+  if [[ $os_type = *"Darwin"* ]]; then
+    path+=("${HOME}/Library/Python/3.9/bin")
+    path+=("/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/")
+    path+=("/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/") 
+  fi
+fi
 
 export PATH
 
@@ -132,14 +154,14 @@ export PATH
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# RBENV & JENV
-eval "$(jenv init -)"
-eval "$(rbenv init -)"
-eval "$(brew shellenv)"
+(($+commands[brew]))  && eval "$(brew shellenv)"
+(($+commands[jenv]))  && eval "$(jenv init -)"
+(($+commands[rbenv])) && eval "$(rbenv init -)"
+
 eval "$(register-python-argcomplete pipx)"
-eval "$($HOME/.config/base16-shell/profile_helper.sh)"
 
-[ -f ~/.fzf.zsh ]  && source ~/.fzf.zsh
-[ -f ~/.bun/_bun ] && source ~/.bun/_bun
+if [[ -f ~/.go/bin/gocomplete ]]; then
+  complete -o nospace -C ~/.go/bin/gocomplete go
+fi
 
-complete -o nospace -C ~/.go/bin/gocomplete go
+[[ -z $os_type ]] && unset os_type
