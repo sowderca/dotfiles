@@ -10,9 +10,6 @@
 [user]
     name = Cameron Sowder
     email = cameron@sowder.io
-    signingkey = ECB5092B6F7EB28C
-[credential]
-    helper = osxkeychain
 [core]
     editor = nvim
 [instaweb]
@@ -21,22 +18,15 @@
     browser = open
 [alias]
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-[merge]
-    tool = opendiff
 [difftool]
     prompt = false
 [mergetool]
     prompt = false
-[diff]
-    tool = opendiff
 [gui]
     fontdiff = -family \"Operator Mono for Powerline\" -size 12 -weight normal -slant roman -underline 0 -overstrike 0
     tabsize = 4
 [commit]
-    template = /Users/sowderca/.commit.template
-    gpgsign = true
-[gpg]
-    program = /usr/local/bin/gpg
+    template = ~/.commit.template
 [help]
     autoCorrect = -1
 [pull]
@@ -60,3 +50,12 @@
     ui = true
 [init]
     defaultBranch = master
+[includeIf "gitdir:/Users/sowderca/Developer/"]
+    path = ~/.dotfiles/macOS.gitconfig
+[includeIf "gitdir:/home/sowderca/Developer/"]
+    path = ~/.dotfiles/linux.gitconfig
+
+
+
+
+

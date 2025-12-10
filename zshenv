@@ -1,5 +1,5 @@
-. "${HOME}/.cargo/env"
 export CLICOLOR=1
+export CLICOLOR_FORCE=1
 export GO111MODULE="auto"
 export GOPATH="${HOME}/.go"
 export NVM_DIR="${HOME}/.nvm"
@@ -9,6 +9,10 @@ export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export BASE16_THEME=gruvbox-dark-medium
 export TERMINFO="${HOME}/.terminfo"
 export NUGET_CREDENTIALPROVIDER_SESSIONTOKENCACHE_ENABLED=true
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
+if (($+commands[rustc])); then
+  . "${HOME}/.cargo/env"
+  export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+fi
 
 [[ -d "/Library/Java/JavaVirtualMachines/graalvm-25.jdk/Contents/Home/" ]] &&  export GRAALVM_HOME="/Library/Java/JavaVirtualMachines/graalvm-25.jdk/Contents/Home/"

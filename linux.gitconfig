@@ -1,0 +1,13 @@
+# vim: set ft=gitconfig: #
+[gpg]
+    program = /usr/bin/gpg
+[diff]
+    tool = meld
+[user]
+    signingkey = ECB5092B6F7EB28C
+[merge]
+    tool = meld
+[commit]
+    gpgsign = true
+[credential]
+    helper = /usr/lib/git-core/git-credential-libsecret

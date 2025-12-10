@@ -21,6 +21,13 @@ fi
 # Default functions
 fpath+=("${HOME}/.zsh/completion")
 
+if ! [[ -z $os_type ]]; then
+  if ! [[ $os_type = *"Darwin"* ]]; then
+    test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+    test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  fi
+fi
+
 # Enable homebrew function discovery
 if (($+commands[brew])); then
   fpath+=("$(brew --prefix)/completion/zsh")
@@ -99,7 +106,6 @@ alias vim="nvim"
 alias bat="bat --theme gruvbox-dark"
 alias dir="ls -lh"
 alias del="rm"
-alias git="hub"
 alias buck="buck2"
 alias chatgpt="aichat"
 alias powershell="pwsh"
@@ -110,6 +116,29 @@ alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
 alias help="tldr"
 alias hackernews="clx"
+
+# An explicit check is needed here since git is used for configuration.
+(($+commands[hub])) && alias git="hub"
+
+if ! [[ -z $os_type ]]; then
+  if ! [[ $os_type = *"Darwin"* ]]; then
+    alias ls="ls --color=always"
+    alias less="less --use-color"
+    alias vdir="vdir --color=always"
+    alias grep="grep --color=always"
+    alias meld="org.gnome.meld"
+    # Wayland use only
+    if ! [[ -z $XDG_SESSION_TYPE ]]; then
+      if [[ $XDG_SESSION_TYPE = "wayland" ]]; then
+        alias pbcopy="wl-copy"
+        alias pbpaste="wl-paste"
+      elif [[ $XDG_SESSION_TYPE = "x11" ]]; then
+          alias pbcopy="xclip"
+          alias pbpaste="xclip -o"
+      fi
+    fi
+  fi
+fi
 
 # Add homebrew programs to path.
 if (($+commands[brew])); then
