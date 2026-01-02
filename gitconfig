@@ -54,8 +54,7 @@
     path = ~/.dotfiles/macOS.gitconfig
 [includeIf "gitdir:/home/sowderca/Developer/"]
     path = ~/.dotfiles/linux.gitconfig
-
-
-
-
-
+[http]
+    lowSpeedLimit = 1000
+    lowSpeedTime = 60
+    postBuffer = 524288000

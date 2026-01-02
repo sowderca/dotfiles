@@ -97,7 +97,13 @@ fi
 zplug load
 
 # Theme
-base16_gruvbox-dark-medium
+if ! [[ -z $os_type ]]; then
+  if ! [[ $os_type = *"Darwin"* ]]; then
+    base16_gruvbox-dark-hard
+  else
+    base16_gruvbox-dark-medium
+  fi
+fi
 
 # Alias
 alias ai="gh copilot"

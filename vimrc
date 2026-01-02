@@ -17,13 +17,20 @@ const s:neovim  = has('nvim')
 const s:windows = has('win16') || has('win32') || has('win64')
 
 const gruvbox_material_foreground = 'mix'
-const gruvbox_material_background = 'medium'
 const gruvbox_material_enable_bold = 1
 const gruvbox_material_better_performance = 1
 const gruvbox_material_disable_italic_comment = 0
 const gruvbox_material_diagnostic_text_highlight = 1
 const gruvbox_material_diagnostic_line_highlight = 1
 
+" On macOS the default windows decoractions match 'medium', but on Linux with Gnome they match 'hard'
+if system('arch') == "arm64"
+    const gruvbox_material_background = 'medium'
+else
+    const gruvbox_material_background = 'hard'
+endif
+
+" Try to use 'gruvbox' as much as possible.
 try
   colorscheme gruvbox-material
 catch
@@ -31,7 +38,7 @@ catch
   colorscheme retrobox
 endtry
 
-" On Windows, also use ~/.vim instead of vimfiles... Although these days I usually just use WSL
+" On Windows, also use ~/.vim instead of vimfiles... Although these days I don't even have a Windows machine.
 if s:windows
   if !s:neovim
     if has('multi_byte') || (has('gui_running') && &encoding ==# 'latin1')
@@ -126,6 +133,7 @@ if !s:neovim
 endif
 
 if has('autocmd')
+  " .jsonc file support... especially for some VSCode config files.
   autocmd FileType json syntax match Comment +\/\/.\+$+
 
   function! CheckGitCommit()
