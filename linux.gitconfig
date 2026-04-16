@@ -4,7 +4,7 @@
 [diff]
     tool = meld
 [user]
-    signingkey = ECB5092B6F7EB28C
+    signingkey = 5BE3A64FEE8254DE
 [merge]
     tool = meld
 [commit]

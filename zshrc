@@ -35,6 +35,7 @@ if (($+commands[brew])); then
 fi
 
 # Default source code path (Gets a special folder icon on macOS
+test -d ~/Developer || mkdir -p "${HOME}/Developer"
 cdpath+=($HOME/Developer)
 
 # compinit

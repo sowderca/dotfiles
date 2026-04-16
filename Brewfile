@@ -1,394 +1,200 @@
 # vim: set ft=ruby: #
-tap "azure/azd"
-tap "azure/bicep"
-tap "azure/functions"
-tap "bensadeh/circumflex"
-tap "coursier/formulas"
-tap "dapr/tap"
-tap "facebook/fb"
-tap "hashicorp/tap"
-tap "homebrew/services"
-tap "isen-ng/dotnet-sdk-versions"
-tap "kcl-lang/tap"
-tap "kusionstack/tap"
-tap "microsoft/azdata-cli-release"
-tap "microsoft/mssql-release"
-tap "nats-io/nats-tools"
-tap "oven-sh/bun"
-tap "playcover/playcover"
-tap "scalacenter/bloop"
-tap "siderolabs/tap"
-tap "teamookla/speedtest"
-tap "telepresenceio/telepresence"
-tap "thoughtbot/formulae"
-tap "ubuntu/microk8s"
-tap "virtuslab/scala-cli"
-brew "zstd"
-brew "azure-cli"
-brew "ballerina"
-brew "bat"
-brew "buildifier"
-brew "buildozer"
-brew "cilium-cli"
-brew "circumflex"
-brew "clusterctl"
-brew "cmake"
-brew "consul-template"
-brew "container", link: false
-brew "dav1d"
-brew "displayplacer"
-brew "dive"
-brew "dos2unix"
-brew "dotslash"
-brew "folly"
-brew "fizz"
-brew "wangle"
-brew "fbthrift"
-brew "fb303"
-brew "edencommon"
-brew "elixir"
-brew "fd"
-brew "ffmpeg"
-brew "fpp"
-brew "fzf"
-brew "gh"
-brew "git-lfs"
-brew "gleam"
-brew "go"
-brew "gotags"
-brew "gradle"
-brew "graphviz"
-brew "grpc"
-brew "helm"
-brew "hub"
-brew "hubble"
-brew "hysteria"
-brew "ipcalc"
-brew "ipinfo-cli"
-brew "jc"
-brew "jenv"
-brew "jq"
-brew "juju"
-brew "kind"
-brew "kompose"
-brew "kubernetes-cli"
-brew "kops"
-brew "levant"
-brew "lima"
-brew "lua-language-server"
-brew "luarocks"
-brew "lxc"
-brew "mas"
-brew "maven"
-brew "minikube"
-brew "mtr"
-brew "neovim"
-brew "ninja"
-brew "nmap"
-brew "nuget"
-brew "opa"
-brew "oras"
-brew "pipx"
-brew "pkgconf"
-brew "pkl"
-brew "protolint"
-brew "python-yq"
-brew "ranger"
-brew "rbenv"
-brew "rcm"
-brew "reattach-to-user-namespace"
-brew "ripgrep"
-brew "rustup"
-brew "serf"
-brew "skaffold"
-brew "sslscan"
-brew "starship"
-brew "telnet"
-brew "temporal"
-brew "terraform-ls"
-brew "tetra"
-brew "tmux"
-brew "trash", link: true
-brew "tree"
-brew "vlang"
-brew "wabt"
-brew "watchman"
-brew "wget"
-brew "ykman"
-brew "zig"
-brew "zrok"
-brew "zsh-completions"
-brew "azure/azd/azd"
-#brew "azure/bicep/bicep"
-brew "azure/functions/azure-functions-core-tools@4"
-brew "dapr/tap/dapr-cli"
-brew "facebook/fb/idb-companion"
-brew "hashicorp/tap/boundary"
-brew "hashicorp/tap/consul"
-brew "hashicorp/tap/consul-dataplane"
-brew "hashicorp/tap/consul-terraform-sync"
-brew "hashicorp/tap/hc-install"
-brew "hashicorp/tap/hcdiag"
-brew "hashicorp/tap/hcp"
-brew "hashicorp/tap/nomad"
-brew "hashicorp/tap/nomad-pack"
-brew "hashicorp/tap/packer"
-brew "hashicorp/tap/sentinel"
-brew "hashicorp/tap/terraform"
-brew "hashicorp/tap/tf-migrate"
-brew "hashicorp/tap/tfstacks"
-brew "hashicorp/tap/vault"
-brew "hashicorp/tap/vault-radar"
-brew "kcl-lang/tap/kcl-lsp"
-brew "kcl-lang/tap/kcl"
-brew "kusionstack/tap/kusion"
-brew "nats-io/nats-tools/nats"
-brew "nats-io/nats-tools/nsc"
-brew "oven-sh/bun/bun"
-brew "siderolabs/tap/omnictl"
-brew "siderolabs/tap/talosctl"
-brew "teamookla/speedtest/speedtest"
-brew "telepresenceio/telepresence/telepresence-oss"
-brew "ubuntu/microk8s/microk8s"
+
+$PERSONAL_MACHINE = `hostname`.include?('sowderca')
+
+$GO_DEV_TOOLS=true
+$JAVA_DEV_TOOLS=true
+$AZURE_DEV_TOOLS=true
+$DOTNET_DEV_TOOLS=true
+
+# If there is a built-in API to do this via Homebrew that'd be great...
+def missing?(cmd)
+  return `which #{cmd} 2>/dev/null`.empty?
+end
+
+def installed?(app)
+  if not missing?('flatpak')
+    return `flatpak list --columns=name | grep -i #{app}`.empty?
+  else
+    return false
+  end
+end
+
+# MS cloud tooling.
+tap 'dapr/tap'
+
+tap 'azure/azd'
+tap 'azure/bicep'
+tap 'azure/functions'
+
+# More corpo tooling.
+tap 'facebook/fb'
+tap 'hashicorp/tap'
+
+# Useful things.
+tap 'teamookla/speedtest'
+tap 'thoughtbot/formulae'
+
+# Used alot for local prototyping.
+tap 'nats-io/nats-tools'
+
+brew 'go'
+brew 'mas' unless OS.linux?
+brew 'krew'
+brew 'rust'
+brew 'rustup'
+
+brew 'gh'
+brew 'bat'
+brew 'hub'
+brew 'opa'
+brew 'rcm'
+brew 'fpp'
+brew 'nmap'
+brew 'kind'
+brew 'tree'
+brew 'grpc'
+brew 'helm'
+brew 'trash', link: true unless OS.linux?
+brew 'neovim'
+brew 'hubble'
+brew 'sslscan'
+brew 'watchman'
+brew 'dos2unix'
+brew 'protolint'
+brew 'cilium-cli'
+brew 'circumflex' # Hackernews TUI
+brew 'ipinfo-cli'
+brew 'kubernetes-cli'
 
 
-cask "android-studio"
-cask "citrix-workspace"
-cask "container"
-cask "dbngin"
-cask "debookee"
-cask "discord"
-cask "docker-desktop"
-cask "dotnet-sdk"
-cask "dotnet-sdk8"
-cask "dotnet-sdk8-0-400"
-cask "dungeon-crawl-stone-soup-console"
-cask "expo-orbit"
-cask "flipper"
-cask "font-fira-code-nerd-font"
-cask "font-fira-mono-nerd-font"
-cask "font-monaspace"
-cask "ghostty"
-cask "google-chrome"
-cask "gpg-suite"
-cask "graalvm-jdk"
-cask "hashicorp-boundary-desktop"
-cask "hazel"
-cask "iterm2"
-cask "jdk-mission-control"
-cask "microsoft-azure-storage-explorer"
-cask "microsoft-edge"
-cask "microsoft-openjdk"
-cask "ngrok"
-cask "origami-studio"
-cask "parallels"
-cask "playcover-community"
-cask "postman"
-cask "powershell"
-cask "qmk-toolbox"
-cask "rapidapi"
-cask "remote-desktop-manager"
-cask "royal-tsx"
-cask "sideloadly"
-cask "sketch"
-cask "tableplus"
-cask "vagrant"
-cask "visual-studio-code"
-cask "visualvm"
+# Hashicorp tooling.
+brew 'hashicorp/tap/nomad'
+brew 'hashicorp/tap/vault'
+brew 'hashicorp/tap/consul'
+brew 'hashicorp/tap/packer'
+brew 'hashicorp/tap/sentinel'
+brew 'hashicorp/tap/terraform'
 
-mas "Affinity Designer 2", id: 1616831348
-mas "Affinity Photo 2", id: 1616822987
-mas "Affinity Publisher 2", id: 1606941598
-mas "Apple Configurator", id: 1037126344
-mas "ChmPages", id: 1164062917
-mas "Developer", id: 640199958
-mas "iMovie", id: 408981434
-mas "Keynote", id: 409183694
-mas "Keyshape", id: 1223341056
-mas "Microsoft Excel", id: 462058435
-mas "Microsoft PowerPoint", id: 462062816
-mas "Microsoft Word", id: 462054704
-mas "Numbers", id: 409203825
-mas "OmniGraffle", id: 1142578753
-mas "OneDrive", id: 823766827
-mas "Pages", id: 409201541
-mas "Remote Desktop", id: 409907375
-mas "Sketch", id: 1667260533
-mas "Slack", id: 803453959
-mas "Steam Link", id: 1246969117
-mas "Swift Playground", id: 1496833156
-mas "TestFlight", id: 899247664
-mas "Transporter", id: 1450874784
-mas "Windows App", id: 1295203466
-mas "Wipr", id: 1662217862
+# NATS tooling.
+brew 'nats-io/nats-tools/nsc'
+brew 'nats-io/nats-tools/nats'
+
+# Some of these tools come bundled with Linux but are usually missing on macOS.
+brew 'jq'      unless not missing? 'jq'
+brew 'fzf'     unless not missing? 'fzf'
+brew 'tmux'    unless not missing? 'tmux'
+brew 'curl'    unless not missing? 'curl'
+brew 'wget'    unless not missing? 'wget'
+brew 'cmake'   unless not missing? 'cmake'
+brew 'telnet'  unless not missing? 'telnet'
+brew 'ffmpeg'  unless not missing? 'ffmpeg'
+brew 'git-lfs' unless not missing? 'git-lfs'
+
+# Java stuff.
+brew 'maven'     unless not $JAVA_DEV_TOOLS
+brew 'gradle'    unless not $JAVA_DEV_TOOLS
+brew 'ballerina' unless not $JAVA_DEV_TOOLS
+
+# .NET stuff.
+brew 'nuget' unless not $DOTNET_DEV_TOOLS
+
+# Go and go global binaries.
+go 'sigs.k8s.io/bom/cmd/bom'
+
+if $GO_DEV_TOOLS
+  go 'golang.org/x/tools/gopls'
+  # go 'golang.org/x/tools/cmd/diagraph'
+  go 'golang.org/x/tools/cmd/deadcode'
+  go 'golang.org/x/tools/cmd/goimports'
+  go 'golang.org/x/tools/cmd/callgraph'
+
+  go 'google.golang.org/protobuf/cmd/protoc-gen-go'
+  go 'google.golang.org/grpc/cmd/protoc-gen-go-grpc'
+end
+
+# Gnome applications that can function normally in a sandbox.
+flatpak 'org.gnome.logs'        unless installed? 'org.gnome.Logs'
+flatpak 'org.gnome.Meld'        unless installed? 'org.gnome.Meld'
+flatpak 'org.gnome.Boxes'       unless installed? 'org.gnome.Boxes'
+flatpak 'org.gnome.Geary'       unless installed? 'org.gnome.Geary'
+flatpak 'org.gnome.Weather'     unless installed? 'org.gnome.Weather'
+flatpak 'org.gnome.Podcasts'    unless installed? 'org.gnome.Podcasts'
+flatpak 'org.gnome.Contacts'    unless installed? 'org.gnome.Contacts'
+flatpak 'org.gnome.Calendar'    unless installed? 'org.gnome.Calendar'
+flatpak 'org.gnome.TextEditor'  unless installed? 'org.gnome.TextEditor'
+flatpak 'org.gnome.Connections' unless installed? 'org.gnome.Connections'
+
+# <3 Morrowind & Path Of Exile.
+if $PERSONAL_MACHINE
+  flatpak 'org.openmw.OpenMW'
+  flatpak 'com.discordapp.Discord'
+  flatpak 'community.pathofbuilding.PathOfBuilding'
+end
+
+# MacOS standard apps.
+if OS.mac?
+  cask 'iterm2'
+  cask 'dbngin'
+  cask 'vagrant'
+  cask 'debookee'
+  cask 'rapidapi'
+  cask 'parallels'
+  cask 'tableplus'
+  cask 'gpg-suite'
+  cask 'expo-orbit'
+  cask 'microsoft-edge'
+  cask 'origami-studio'
+  cask 'citrix-workspace' # Hopefully one day this can be removed...
+  cask 'visual-studio-code'
+
+  if $DOTNET_DEV_TOOLS
+    cask 'dotnet-sdk'
+    brew 'powershell'
+  end
+
+  if $JAVA_DEV_TOOLS
+    cask 'visualvm'
+    cask 'graalvm-jdk'
+    cask 'android-studio'
+    cask 'microsoft-openjdk'
+    cask 'jdk-mission-control'
+  end
+
+  # Azure stuff.
+  if $AZURE_DEV_TOOLS
+    brew 'azure/azd/azd'
+    brew 'azure/bicep/bicep'
+    brew 'azure/functions/azure-functions-core-tools'
+  end
+
+  # Gaming things.
+  if $PERSONAL_MACHINE
+    cask 'discord'
+    cask 'sideloadly'
+    cask 'qmk-toolbox'
+    cask 'dungeon-crawl-stone-soup-console' # No TUI only version for macOS that works well.
+  end
+
+  if !Hardware::CPU.arm?
+    brew 'xhyve' # Hacky BSD emulator for CNS.
+  end
+
+end
+
+# I use more but need to slim down whats required.
 mas "Xcode", id: 497799835
+mas "Sketch", id: 1667260533
+mas "Keyshape", id: 1223341056
+mas "Developer", id: 640199958
+mas "TestFlight", id: 899247664
+mas "OmniGraffle", id: 1142578753
+mas "Windows App", id: 1295203466
+mas "Microsoft Excel", id: 462058435
 
+# Usually to the other linux machine on the home local network.
+if $PERSONAL_MACHINE
+  mas "Steam Link", id: 1246969117
+end
 
-vscode "13xforever.language-x86-64-assembly"
-vscode "alefragnani.project-manager"
-vscode "angular.ng-template"
-vscode "anweber.httpbook"
-vscode "anweber.vscode-httpyac"
-vscode "arcsector.vscode-splunk-search-syntax"
-vscode "argutec.argutec-azure-repos"
-vscode "azat-io.vscode-gruvbox-icon-theme"
-vscode "bdavs.expect"
-vscode "be5invis.toml"
-vscode "dan-c-underwood.arm"
-vscode "darian-benam.vscode-robots-dot-txt-support"
-vscode "davidanson.vscode-markdownlint"
-vscode "dbaeumer.vscode-eslint"
-vscode "docker.docker"
-vscode "dotjoshjohnson.xml"
-vscode "drcika.apc-extension"
-vscode "eamodio.gitlens"
-vscode "editorconfig.editorconfig"
-vscode "erlang-ls.erlang-ls"
-vscode "estivo.csv-editor"
-vscode "fabiospampinato.vscode-todo-plus"
-vscode "github.copilot"
-vscode "github.copilot-chat"
-vscode "github.vscode-pull-request-github"
-vscode "gleam.gleam"
-vscode "golang.go"
-vscode "graphql.vscode-graphql-syntax"
-vscode "hashicorp.terraform"
-vscode "hbenl.vscode-test-explorer"
-vscode "humao.rest-client"
-vscode "ionide.ionide-fsharp"
-vscode "ionutvmi.reg"
-vscode "jdinhlife.gruvbox"
-vscode "jnoortheen.nix-ide"
-vscode "jtavin.ldif"
-vscode "kcl.kcl-vscode-extension"
-vscode "llvm-vs-code-extensions.lldb-dap"
-vscode "lucono.karma-test-explorer"
-vscode "mike-lischke.vscode-antlr4"
-vscode "mindaro-dev.file-downloader"
-vscode "mint-lang.mint"
-vscode "ms-azure-devops.azure-pipelines"
-vscode "ms-azure-load-testing.microsoft-testing"
-vscode "ms-azuretools.azure-dev"
-vscode "ms-azuretools.vscode-azure-github-copilot"
-vscode "ms-azuretools.vscode-azure-mcp-server"
-vscode "ms-azuretools.vscode-azureappservice"
-vscode "ms-azuretools.vscode-azurecontainerapps"
-vscode "ms-azuretools.vscode-azurefunctions"
-vscode "ms-azuretools.vscode-azureresourcegroups"
-vscode "ms-azuretools.vscode-azurestaticwebapps"
-vscode "ms-azuretools.vscode-azurestorage"
-vscode "ms-azuretools.vscode-azurevirtualmachines"
-vscode "ms-azuretools.vscode-bicep"
-vscode "ms-azuretools.vscode-containers"
-vscode "ms-azuretools.vscode-cosmosdb"
-vscode "ms-azuretools.vscode-docker"
-vscode "ms-azuretools.vscode-documentdb"
-vscode "ms-dotnettools.csdevkit"
-vscode "ms-dotnettools.csharp"
-vscode "ms-dotnettools.dotnet-interactive-vscode"
-vscode "ms-dotnettools.vscode-dotnet-runtime"
-vscode "ms-edgedevtools.vscode-edge-devtools"
-vscode "ms-kubernetes-tools.kind-vscode"
-vscode "ms-kubernetes-tools.vscode-aks-tools"
-vscode "ms-kubernetes-tools.vscode-kubernetes-tools"
-vscode "ms-mssql.data-workspace-vscode"
-vscode "ms-mssql.mssql"
-vscode "ms-mssql.sql-bindings-vscode"
-vscode "ms-mssql.sql-database-projects-vscode"
-vscode "ms-ossdata.vscode-pgsql"
-vscode "ms-python.debugpy"
-vscode "ms-python.python"
-vscode "ms-python.vscode-pylance"
-vscode "ms-python.vscode-python-envs"
-vscode "ms-sarifvscode.sarif-viewer"
-vscode "ms-toolsai.datawrangler"
-vscode "ms-toolsai.jupyter"
-vscode "ms-toolsai.jupyter-keymap"
-vscode "ms-toolsai.jupyter-renderers"
-vscode "ms-toolsai.vscode-jupyter-cell-tags"
-vscode "ms-toolsai.vscode-jupyter-slideshow"
-vscode "ms-vscode-remote.remote-containers"
-vscode "ms-vscode-remote.remote-ssh"
-vscode "ms-vscode-remote.remote-ssh-edit"
-vscode "ms-vscode-remote.remote-wsl"
-vscode "ms-vscode-remote.vscode-remote-extensionpack"
-vscode "ms-vscode.cpptools"
-vscode "ms-vscode.makefile-tools"
-vscode "ms-vscode.powershell"
-vscode "ms-vscode.remote-explorer"
-vscode "ms-vscode.remote-server"
-vscode "ms-vscode.test-adapter-converter"
-vscode "ms-vscode.vscode-node-azure-pack"
-vscode "ms-vsliveshare.vsliveshare"
-vscode "ms-windows-ai-studio.windows-ai-studio"
-vscode "msjsdiag.vscode-react-native"
-vscode "mtxr.sqltools"
-vscode "mtxr.sqltools-driver-mysql"
-vscode "peerstudios.buck2-lsp-adapter"
-vscode "pkl.pkl-vscode"
-vscode "poml-team.poml"
-vscode "redhat.fabric8-analytics"
-vscode "redhat.java"
-vscode "redhat.vscode-xml"
-vscode "redhat.vscode-yaml"
-vscode "rosshamish.kuskus-kusto-syntax-highlighting"
-vscode "rust-lang.rust-analyzer"
-vscode "serpen.vbsvscode"
-vscode "shopify.ruby-lsp"
-vscode "streetsidesoftware.code-spell-checker"
-vscode "stylelint.vscode-stylelint"
-vscode "sumneko.lua"
-vscode "swiftlang.swift-vscode"
-vscode "syler.sass-indented"
-vscode "teamsdevapp.vscode-ai-foundry"
-vscode "typespec.typespec-vscode"
-vscode "vadimcn.vscode-lldb"
-vscode "visualstudioonlineapplicationinsights.application-insights"
-vscode "vosca.vscode-v-analyzer"
-vscode "vscjava.migrate-java-to-azure"
-vscode "vscjava.vscode-gradle"
-vscode "vscjava.vscode-java-debug"
-vscode "vscjava.vscode-java-dependency"
-vscode "vscjava.vscode-java-pack"
-vscode "vscjava.vscode-java-test"
-vscode "vscjava.vscode-java-upgrade"
-vscode "vscjava.vscode-maven"
-vscode "vscode-icons-team.vscode-icons"
-vscode "vscodevim.vim"
-vscode "wayou.vscode-todo-highlight"
-vscode "webben.browserslist"
-vscode "wso2.ballerina"
-vscode "wso2.wso2-platform"
-vscode "ziglang.vscode-zig"
-vscode "zxh404.vscode-proto3"
-
-go "sigs.k8s.io/bom/cmd/bom"
-go "golang.org/x/tools/cmd/callgraph"
-go "golang.org/x/tools/cmd/deadcode"
-go "golang.org/x/tools/cmd/digraph"
-go "github.com/go-delve/delve/cmd/dlv"
-go "entgo.io/ent/cmd/ent"
-go "github.com/ofabry/go-callvis"
-go "github.com/posener/complete/gocomplete"
-go "golang.org/x/tools/cmd/goimports"
-go "golang.org/x/tools/gopls"
-go "github.com/google/gops"
-go "github.com/go-kratos/kratos/cmd/kratos/v2"
-go "go.uber.org/mock/mockgen"
-go "github.com/ogen-go/ogen/cmd/ogen"
-go "google.golang.org/protobuf/cmd/protoc-gen-go"
-go "github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2"
-go "google.golang.org/grpc/cmd/protoc-gen-go-grpc"
-go "github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2"
-go "github.com/google/gnostic/cmd/protoc-gen-openapi"
-go "github.com/envoyproxy/protoc-gen-validate"
-go "honnef.co/go/tools/cmd/staticcheck"
-go "github.com/projectdiscovery/uncover/cmd/uncover"
-go "github.com/google/wire/cmd/wire"
-
-flatpak "com.slack.Slack"
-flatpak "org.openmw.OpenMW"
-flatpak "org.gnome.Builder"
-flatpak "org.gnome.Podcasts"
-flatpak "com.discordapp.Discord"
-flatpak "community.pathofbuilding.PathOfBuilding"
+puts "\e[0;35m Your prbly missing things double check the last update of this script on your backup images \e[0m\n"
