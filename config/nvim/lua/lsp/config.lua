@@ -1,6 +1,7 @@
 require('mason').setup()
-require('mason-nvim-dap').setup()
-require('mason-lspconfig').setup()
+-- require('mason-nvim-dap').setup()
+-- require('mason-lspconfig').setup()
+require('treesitter-context').setup()
 
 require('blink.cmp').setup({
   keymap = {
@@ -48,6 +49,7 @@ vim.lsp.enable('helm_ls')
 vim.lsp.enable('html')
 vim.lsp.enable('jsonls')
 vim.lsp.enable('lua_ls')
+vim.lsp.enable('lua-language-server')
 vim.lsp.enable('msbuild_project_tools_server')
 vim.lsp.enable('pearlls')
 vim.lsp.enable('powershell_es')

@@ -101,8 +101,10 @@ zplug load
 if ! [[ -z $os_type ]]; then
   if ! [[ $os_type = *"Darwin"* ]]; then
     base16_gruvbox-dark-hard
+    export BASE16_THEME=gruvbox-dark-hard
   else
     base16_gruvbox-dark-medium
+    export BASE16_THEME=gruvbox-dark-medium
   fi
 fi
 
