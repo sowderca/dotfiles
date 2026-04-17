@@ -114,7 +114,7 @@ if $GO_DEV_TOOLS
 end
 
 # Gnome applications that can function normally in a sandbox.
-flatpak 'org.gnome.logs'        unless installed? 'org.gnome.Logs'
+flatpak 'org.gnome.Logs'        unless installed? 'org.gnome.Logs'
 flatpak 'org.gnome.Meld'        unless installed? 'org.gnome.Meld'
 flatpak 'org.gnome.Boxes'       unless installed? 'org.gnome.Boxes'
 flatpak 'org.gnome.Geary'       unless installed? 'org.gnome.Geary'
