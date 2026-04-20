@@ -38,6 +38,8 @@ tap 'thoughtbot/formulae'
 # Used alot for local prototyping.
 tap 'nats-io/nats-tools'
 
+tap 'isen-ng/dotnet-sdk-vesions' if OS.mac? and $DOTNET_DEV_TOOLS
+
 brew 'go'
 brew 'mas' if OS.mac?
 brew 'krew'
@@ -53,14 +55,16 @@ brew 'nmap'
 brew 'kind'
 brew 'tree'
 brew 'grpc'
-brew 'rbenv'
+brew 'serf'
 brew 'helm'
+brew 'rbenv'
 brew 'rbenv'
 brew 'trash', link: true if OS.mac?
 brew 'neovim'
 brew 'hubble'
-brew 'ansible' if OS.mac?
+brew 'ansible'
 brew 'sslscan'
+brew 'git-lfs'
 brew 'watchman'
 brew 'dos2unix'
 brew 'protolint'
@@ -68,7 +72,6 @@ brew 'cilium-cli'
 brew 'circumflex' # Hackernews TUI
 brew 'ipinfo-cli'
 brew 'kubernetes-cli'
-
 
 # Hashicorp tooling.
 brew 'hashicorp/tap/nomad'
@@ -82,15 +85,18 @@ brew 'hashicorp/tap/terraform'
 brew 'nats-io/nats-tools/nsc'
 brew 'nats-io/nats-tools/nats'
 
+brew 'teamookla/speedtest/speedtest'
+
 # Some of these tools come bundled with Linux but are usually missing on macOS.
-brew 'jq'      if missing? 'jq'
-brew 'fzf'     if missing? 'fzf'
-brew 'tmux'    if missing? 'tmux'
-brew 'curl'    if missing? 'curl'
-brew 'wget'    if missing? 'wget'
-brew 'telnet'  if missing? 'telnet'
-brew 'ffmpeg'  if missing? 'ffmpeg'
-brew 'git-lfs' if missing? 'git-lfs'
+brew 'jq'        if missing? 'jq'
+brew 'fzf'       if missing? 'fzf'
+brew 'tmux'      if missing? 'tmux'
+brew 'curl'      if missing? 'curl'
+brew 'wget'      if missing? 'wget'
+brew 'telnet'    if missing? 'telnet'
+brew 'ffmpeg'    if missing? 'ffmpeg'
+brew 'git-lfs'   if missing? 'git-lfs'
+brew 'fastfetch' if missing? 'fastfetch'
 
 # Java stuff.
 brew 'maven'     if $JAVA_DEV_TOOLS
@@ -100,8 +106,13 @@ brew 'ballerina' if $JAVA_DEV_TOOLS
 # .NET stuff.
 brew 'nuget' if $DOTNET_DEV_TOOLS
 
+# k8s cli plugins
+krew 'aks'
+krew 'krew'
+
 # Go and go global binaries.
 go 'sigs.k8s.io/bom/cmd/bom'
+go "github.com/posener/complete/gocomplete"
 
 if $GO_DEV_TOOLS
 
@@ -113,6 +124,11 @@ if $GO_DEV_TOOLS
 
   go 'google.golang.org/protobuf/cmd/protoc-gen-go'
   go 'google.golang.org/grpc/cmd/protoc-gen-go-grpc'
+
+  go "github.com/google/gops"
+  go "github.com/google/wire/cmd/wire"
+
+  go "github.com/go-delve/delve/cmd/dlv"
 
 end
 
@@ -153,6 +169,7 @@ if OS.mac?
   cask 'tableplus'
   cask 'gpg-suite'
   cask 'expo-orbit'
+  cask 'docker-desktop'
   cask 'microsoft-edge'
   cask 'origami-studio'
   cask 'citrix-workspace' # Hopefully one day this can be removed...
@@ -176,6 +193,8 @@ if OS.mac?
     brew 'azure/azd/azd'
     brew 'azure/bicep/bicep'
     brew 'azure/functions/azure-functions-core-tools'
+
+    cask "microsoft-azure-storage-explorer"
   end
 
   # Gaming things.
@@ -192,6 +211,7 @@ if OS.mac?
 
   # I use more but need to slim down whats required.
   mas "Xcode", id: 497799835
+  mas "Slack", id: 803453959
   mas "Sketch", id: 1667260533
   mas "Keyshape", id: 1223341056
   mas "Developer", id: 640199958
@@ -199,6 +219,9 @@ if OS.mac?
   mas "OmniGraffle", id: 1142578753
   mas "Windows App", id: 1295203466
   mas "Microsoft Excel", id: 462058435
+  mas "Affinity Photo 2", id: 1616822987
+  mas "Affinity Designer 2", id: 1616831348
+  mas "Affinity Publisher 2", id: 1606941598
 
   # Usually to the other linux machine on the home local network.
   if $PERSONAL_MACHINE
@@ -206,3 +229,8 @@ if OS.mac?
   end
 
 end
+
+# Minimum VSCode extensions.
+vscode 'vscodevim.vim'
+vscode 'jdinhlife.gruvbox'
+vscode 'vscode-icons-team.vscode-icons'
