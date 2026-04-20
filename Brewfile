@@ -1,11 +1,11 @@
 # vim: set ft=ruby: #
-
 $PERSONAL_MACHINE = `hostname`.include?('sowderca')
 
-$GO_DEV_TOOLS=true
-$JAVA_DEV_TOOLS=true
-$AZURE_DEV_TOOLS=true
-$DOTNET_DEV_TOOLS=true
+$GO_DEV_TOOLS     = true
+$RUST_DEV_TOOLS   = false
+$JAVA_DEV_TOOLS   = true
+$AZURE_DEV_TOOLS  = true
+$DOTNET_DEV_TOOLS = true
 
 # If there is a built-in API to do this via Homebrew that'd be great...
 def missing?(cmd)
@@ -39,10 +39,9 @@ tap 'thoughtbot/formulae'
 tap 'nats-io/nats-tools'
 
 brew 'go'
-brew 'mas' unless OS.linux?
+brew 'mas' if OS.mac?
 brew 'krew'
 brew 'rust'
-brew 'rustup'
 
 brew 'gh'
 brew 'bat'
@@ -54,10 +53,13 @@ brew 'nmap'
 brew 'kind'
 brew 'tree'
 brew 'grpc'
+brew 'rbenv'
 brew 'helm'
-brew 'trash', link: true unless OS.linux?
+brew 'rbenv'
+brew 'trash', link: true if OS.mac?
 brew 'neovim'
 brew 'hubble'
+brew 'ansible' if OS.mac?
 brew 'sslscan'
 brew 'watchman'
 brew 'dos2unix'
@@ -81,36 +83,42 @@ brew 'nats-io/nats-tools/nsc'
 brew 'nats-io/nats-tools/nats'
 
 # Some of these tools come bundled with Linux but are usually missing on macOS.
-brew 'jq'      unless not missing? 'jq'
-brew 'fzf'     unless not missing? 'fzf'
-brew 'tmux'    unless not missing? 'tmux'
-brew 'curl'    unless not missing? 'curl'
-brew 'wget'    unless not missing? 'wget'
-brew 'cmake'   unless not missing? 'cmake'
-brew 'telnet'  unless not missing? 'telnet'
-brew 'ffmpeg'  unless not missing? 'ffmpeg'
-brew 'git-lfs' unless not missing? 'git-lfs'
+brew 'jq'      if missing? 'jq'
+brew 'fzf'     if missing? 'fzf'
+brew 'tmux'    if missing? 'tmux'
+brew 'curl'    if missing? 'curl'
+brew 'wget'    if missing? 'wget'
+brew 'telnet'  if missing? 'telnet'
+brew 'ffmpeg'  if missing? 'ffmpeg'
+brew 'git-lfs' if missing? 'git-lfs'
 
 # Java stuff.
-brew 'maven'     unless not $JAVA_DEV_TOOLS
-brew 'gradle'    unless not $JAVA_DEV_TOOLS
-brew 'ballerina' unless not $JAVA_DEV_TOOLS
+brew 'maven'     if $JAVA_DEV_TOOLS
+brew 'gradle'    if $JAVA_DEV_TOOLS
+brew 'ballerina' if $JAVA_DEV_TOOLS
 
 # .NET stuff.
-brew 'nuget' unless not $DOTNET_DEV_TOOLS
+brew 'nuget' if $DOTNET_DEV_TOOLS
 
 # Go and go global binaries.
 go 'sigs.k8s.io/bom/cmd/bom'
 
 if $GO_DEV_TOOLS
+
   go 'golang.org/x/tools/gopls'
-  # go 'golang.org/x/tools/cmd/diagraph'
+  go 'golang.org/x/tools/cmd/digraph'
   go 'golang.org/x/tools/cmd/deadcode'
   go 'golang.org/x/tools/cmd/goimports'
   go 'golang.org/x/tools/cmd/callgraph'
 
   go 'google.golang.org/protobuf/cmd/protoc-gen-go'
   go 'google.golang.org/grpc/cmd/protoc-gen-go-grpc'
+
+end
+
+# Rust and rust global binaries.
+if $RUST_DEV_TOOLS
+  brew 'rustup'
 end
 
 # Gnome applications that can function normally in a sandbox.
@@ -135,6 +143,7 @@ end
 
 # MacOS standard apps.
 if OS.mac?
+
   cask 'iterm2'
   cask 'dbngin'
   cask 'vagrant'
@@ -151,7 +160,6 @@ if OS.mac?
 
   if $DOTNET_DEV_TOOLS
     cask 'dotnet-sdk'
-    brew 'powershell'
   end
 
   if $JAVA_DEV_TOOLS
@@ -164,6 +172,7 @@ if OS.mac?
 
   # Azure stuff.
   if $AZURE_DEV_TOOLS
+    brew 'powershell'
     brew 'azure/azd/azd'
     brew 'azure/bicep/bicep'
     brew 'azure/functions/azure-functions-core-tools'
@@ -181,21 +190,19 @@ if OS.mac?
     brew 'xhyve' # Hacky BSD emulator for CNS.
   end
 
+  # I use more but need to slim down whats required.
+  mas "Xcode", id: 497799835
+  mas "Sketch", id: 1667260533
+  mas "Keyshape", id: 1223341056
+  mas "Developer", id: 640199958
+  mas "TestFlight", id: 899247664
+  mas "OmniGraffle", id: 1142578753
+  mas "Windows App", id: 1295203466
+  mas "Microsoft Excel", id: 462058435
+
+  # Usually to the other linux machine on the home local network.
+  if $PERSONAL_MACHINE
+    mas "Steam Link", id: 1246969117
+  end
+
 end
-
-# I use more but need to slim down whats required.
-mas "Xcode", id: 497799835
-mas "Sketch", id: 1667260533
-mas "Keyshape", id: 1223341056
-mas "Developer", id: 640199958
-mas "TestFlight", id: 899247664
-mas "OmniGraffle", id: 1142578753
-mas "Windows App", id: 1295203466
-mas "Microsoft Excel", id: 462058435
-
-# Usually to the other linux machine on the home local network.
-if $PERSONAL_MACHINE
-  mas "Steam Link", id: 1246969117
-end
-
-puts "\e[0;35m Your prbly missing things double check the last update of this script on your backup images \e[0m\n"

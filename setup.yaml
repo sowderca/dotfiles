@@ -1,0 +1,38 @@
+---
+
+- hosts: localhost
+  roles:
+    - ansible-output-prettify
+
+- hosts: localhost
+  connection: local
+  become: true
+  tasks:
+
+    - name: 'Install AUR wrapper'
+      when: ansible_os_family == "Archlinux"
+      ansible.builtin.package:
+        name: yay
+        state: present
+
+    - name: 'Install trash command line utility'
+      when: ansible_os_family == "Archlinux"
+      community.general.pacman:
+        name: trash-cli
+        state: present
+        executable: yay
+
+    - name: 'Install GTK murrine engine'
+      when: ansible_os_family == "Archlinux"
+      community.general.pacman:
+        name: gtk-engine-murrine
+        state: present
+        executable: yay
+
+    - name: 'Install Visual Studio Code'
+      when: ansible_os_family == "Archlinux"
+      community.general.pacman:
+        name: visual-studio-code-bin
+        state: present
+        executable: yay
+

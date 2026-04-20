@@ -170,6 +170,7 @@ path+=("${HOME}/.porter")
 path+=("${HOME}/.tiup/bin")
 path+=("${HOME}/.yarn/bin")
 path+=("${HOME}/.jenv/bin")
+path+=("${HOME}/.cargo/bin")
 path+=("${HOME}/.local/bin")
 path+=("${HOME}/.fastlane/bin")
 path+=("${HOME}/.dotnet/tools")
@@ -192,9 +193,10 @@ export PATH
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-(($+commands[brew]))  && eval "$(brew shellenv)"
-(($+commands[jenv]))  && eval "$(jenv init -)"
-(($+commands[rbenv])) && eval "$(rbenv init -)"
+(($+commands[brew]))    && eval "$(brew shellenv)"
+(($+commands[jenv]))    && eval "$(jenv init -)"
+(($+commands[rbenv]))   && eval "$(rbenv init -)"
+(($+commands[metapac])) && eval "$(metapac completions --shell zsh)"
 
 eval "$(register-python-argcomplete pipx)"
 
