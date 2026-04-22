@@ -15,24 +15,13 @@
         name: yay
         state: present
 
-    - name: 'Install trash command line utility'
+    - name: 'Install AUR dependencies'
       when: ansible_os_family == "Archlinux"
       community.general.pacman:
-        name: trash-cli
+        name:
+          - trash-cli
+          - gtk-engine-murrine
+          - visual-studio-code-bin
+          - gruvbox-plus-icon-theme
         state: present
         executable: yay
-
-    - name: 'Install GTK murrine engine'
-      when: ansible_os_family == "Archlinux"
-      community.general.pacman:
-        name: gtk-engine-murrine
-        state: present
-        executable: yay
-
-    - name: 'Install Visual Studio Code'
-      when: ansible_os_family == "Archlinux"
-      community.general.pacman:
-        name: visual-studio-code-bin
-        state: present
-        executable: yay
-
