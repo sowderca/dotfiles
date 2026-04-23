@@ -49,9 +49,15 @@ echo -e "\n${purple}Sourcing zsh configuration...${reset}\n"
 source ~/.dotfiles/zshrc
 source ~/.dotfiles/zshenv
 
+if [[ -f ~/.zplug/repos/chriskempson/base16-shell/colortest ]]; then
+  ~/.zplug/repos/chriskempson/base16-shell/colortest
+fi
+
 brew bundle install --file=$brew_file
 
 echo -e "\n"
+
+pipx install argcomplete
 
 if ! [[ -d $ansible_local_roles ]]; then
   mkdir -p $ansible_local_roles

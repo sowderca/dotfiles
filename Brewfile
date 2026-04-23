@@ -51,6 +51,7 @@ brew 'hub'
 brew 'opa'
 brew 'rcm'
 brew 'fpp'
+brew 'pipx' if OS.mac?
 brew 'nmap'
 brew 'kind'
 brew 'tree'
@@ -72,6 +73,7 @@ brew 'cilium-cli'
 brew 'circumflex' # Hackernews TUI
 brew 'ipinfo-cli'
 brew 'kubernetes-cli'
+brew 'reattach-to-user-namespace' if OS.mac?
 
 # Hashicorp tooling.
 brew 'hashicorp/tap/nomad'

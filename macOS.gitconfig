@@ -4,7 +4,7 @@
 [diff]
     tool = opendiff
 [user]
-    signingkey = ECB5092B6F7EB28C
+    signingkey = E166E9ACB4A72EA8
 [merge]
     tool = opendiff
 [commit]
