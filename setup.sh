@@ -44,6 +44,11 @@ if ! [[ -z $os_type ]]; then
   fi
 fi
 
+echo -e "\n${purple}Sourcing zsh configuration...${reset}\n"
+
+source ~/.dotfiles/zshrc
+source ~/.dotfiles/zshenv
+
 brew bundle install --file=$brew_file
 
 echo -e "\n"
@@ -70,4 +75,3 @@ fi
 sudo printf "[servers]\nlocalhost ansible_connection=local\n" | sudo tee /etc/ansible/hosts > /dev/null
 
 ansible-playbook ~/.dotfiles/setup.yaml --ask-become-pass
-

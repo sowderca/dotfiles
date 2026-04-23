@@ -137,30 +137,33 @@ if $RUST_DEV_TOOLS
   brew 'rustup'
 end
 
-# Gnome applications that can function normally in a sandbox.
-flatpak 'org.gnome.Logs'                 unless installed? 'org.gnome.Logs'
-flatpak 'org.gnome.meld'                 unless installed? 'org.gnome.meld'
-flatpak 'org.gnome.Boxes'                unless installed? 'org.gnome.Boxes'
-flatpak 'org.gnome.Geary'                unless installed? 'org.gnome.Geary'
-flatpak 'org.gnome.Weather'              unless installed? 'org.gnome.Weather'
-flatpak 'org.gnome.Podcasts'             unless installed? 'org.gnome.Podcasts'
-flatpak 'org.gnome.Contacts'             unless installed? 'org.gnome.Contacts'
-flatpak 'org.gnome.Calendar'             unless installed? 'org.gnome.Calendar'
-flatpak 'org.gnome.TextEditor'           unless installed? 'org.gnome.TextEditor'
-flatpak 'org.gnome.Connections'          unless installed? 'org.gnome.Connections'
-flatpak 'org.gnome.font-viewer'          unless installed? 'org.gnome.font-viewer'
-flatpak "org.gnome.seahorse.Application" unless installed? "org.gnome.seahorse.Application"
+if OS.linux?
+  # Gnome applications that can function normally in a sandbox.
+  flatpak 'org.gnome.Logs'                 unless installed? 'org.gnome.Logs'
+  flatpak 'org.gnome.meld'                 unless installed? 'org.gnome.meld'
+  flatpak 'org.gnome.Boxes'                unless installed? 'org.gnome.Boxes'
+  flatpak 'org.gnome.Geary'                unless installed? 'org.gnome.Geary'
+  flatpak 'org.gnome.Weather'              unless installed? 'org.gnome.Weather'
+  flatpak 'org.gnome.Podcasts'             unless installed? 'org.gnome.Podcasts'
+  flatpak 'org.gnome.Contacts'             unless installed? 'org.gnome.Contacts'
+  flatpak 'org.gnome.Calendar'             unless installed? 'org.gnome.Calendar'
+  flatpak 'org.gnome.TextEditor'           unless installed? 'org.gnome.TextEditor'
+  flatpak 'org.gnome.Connections'          unless installed? 'org.gnome.Connections'
+  flatpak 'org.gnome.font-viewer'          unless installed? 'org.gnome.font-viewer'
+  flatpak "org.gnome.seahorse.Application" unless installed? "org.gnome.seahorse.Application"
 
 
-flatpak "com.slack.Slack"
-flatpak "com.github.hugolabe.Wike" # Wikipedia
-flatpak "com.mattjakeman.ExtensionManager"
+  flatpak "com.slack.Slack"
+  flatpak "com.github.hugolabe.Wike" # Wikipedia
+  flatpak "com.mattjakeman.ExtensionManager"
 
-# <3 Morrowind & Path Of Exile.
-if $PERSONAL_MACHINE
-  flatpak 'org.openmw.OpenMW'
-  flatpak 'com.discordapp.Discord'
-  flatpak 'community.pathofbuilding.PathOfBuilding'
+  # <3 Morrowind & Path Of Exile.
+  if $PERSONAL_MACHINE
+    flatpak 'org.openmw.OpenMW'
+    flatpak 'com.discordapp.Discord'
+    flatpak 'org.prisimlauncher.PrismLauncher'
+    flatpak 'community.pathofbuilding.PathOfBuilding'
+  end
 end
 
 # MacOS standard apps.
@@ -169,7 +172,6 @@ if OS.mac?
   cask 'iterm2'
   cask 'dbngin'
   cask 'vagrant'
-  cask 'debookee'
   cask 'rapidapi'
   cask 'steamcmd'
   cask 'parallels'

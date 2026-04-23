@@ -13,6 +13,12 @@ export HOMEBREW_BUNDLE_FILE="${HOME}/.dotfiles/Brewfile"
 
 export NUGET_CREDENTIALPROVIDER_SESSIONTOKENCACHE_ENABLED=true
 
+if (($+commands[nvim])); then
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
+
 if (($+commands[rustc])); then
   export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 fi
