@@ -181,8 +181,9 @@ if OS.mac?
   cask 'gpg-suite'
   cask 'expo-orbit'
   cask 'docker-desktop'
-  cask 'microsoft-edge'
   cask 'origami-studio'
+  cask 'microsoft-edge'
+  cask 'microsoft-teams'
   cask 'citrix-workspace' # Hopefully one day this can be removed...
   cask 'visual-studio-code'
 
@@ -210,6 +211,7 @@ if OS.mac?
 
   # Gaming things.
   if $PERSONAL_MACHINE
+    cask 'steam'
     cask 'discord'
     cask 'sideloadly'
     cask 'qmk-toolbox'
