@@ -163,7 +163,7 @@ if OS.linux?
   if $PERSONAL_MACHINE
     flatpak 'org.openmw.OpenMW'
     flatpak 'com.discordapp.Discord'
-    flatpak 'org.prisimlauncher.PrismLauncher'
+    flatpak 'org.prismlauncher.PrismLauncher'
     flatpak 'community.pathofbuilding.PathOfBuilding'
   end
 end
