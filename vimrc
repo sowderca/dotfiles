@@ -12,6 +12,7 @@ set titlestring=VIM
 set wildoptions-=pum
 set fileformats=unix,mac,dos
 
+
 const s:gui     = has('gui_running') || strlen(&term) == 0 || &term ==? 'builtin_gui'
 const s:neovim  = has('nvim')
 const s:windows = has('win16') || has('win32') || has('win64')
@@ -135,6 +136,8 @@ endif
 if has('autocmd')
   " .jsonc file support... especially for some VSCode config files.
   autocmd FileType json syntax match Comment +\/\/.\+$+
+
+  " autocmd CursorMoved * lua vim.diagnostic.open_float(nil, {focusable = false})
 
   function! CheckGitCommit()
     :3

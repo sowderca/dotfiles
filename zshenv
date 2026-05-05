@@ -19,6 +19,8 @@ else
   export EDITOR=vim
 fi
 
+export OPENER=$EDITOR
+
 if (($+commands[rustc])); then
   export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 fi

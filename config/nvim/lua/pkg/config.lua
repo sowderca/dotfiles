@@ -1,0 +1,9 @@
+vim.api.nvim_create_user_command(
+  'PackUpdate',
+  function()
+      vim.pack.update()
+      vim.cmd('MasonUpdate')
+      vim.cmd('MasonToolsUpdate')
+  end,
+  {}
+)

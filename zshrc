@@ -1,6 +1,6 @@
 # zstyle
-zstyle :compinstall filename "${HOME}/.zshrc"
 zmodload zsh/complist
+zstyle :compinstall filename "${HOME}/.zshrc"
 
 # keybindings
 bindkey -v
@@ -34,14 +34,16 @@ if (($+commands[brew])); then
   fpath+=("$(brew --prefix)/share/zsh/site-functions")
 fi
 
-# Default source code path (Gets a special folder icon on macOS
+# Default source code paths (Developer gets a special folder icon on macOS
+test -d ~/Scripts/  || mkdir -p "${HOME}/Scripts"
 test -d ~/Developer || mkdir -p "${HOME}/Developer"
+
 cdpath+=($HOME/Developer)
 
 # compinit
-autoload -Uz compinit && compinit
-autoload -U colors && colors
 autoload -U add-zsh-hook
+autoload -U colors && colors
+autoload -Uz compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 
 # Source
@@ -60,28 +62,33 @@ source "${HOME}/.local/bin/security.sh"
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # Load plugins
-zplug "lib/completion", from:oh-my-zsh
 zplug "lib/history", from:oh-my-zsh
-zplug "plugins/docker", from:oh-my-zsh, as:plugin
-zplug "plugins/git", from:oh-my-zsh, as:plugin
-zplug "plugins/kops", from:oh-my-zsh, as:plugin
-zplug "plugins/minikube", from:oh-my-zsh, as:plugin
-zplug "plugins/nomad", from:oh-my-zsh, as:plugin
-zplug "plugins/swiftpm", from:oh-my-zsh, as:plugin
-zplug "plugins/npm", from:oh-my-zsh, as:plugin
-zplug "plugins/ng", from:oh-my-zsh, as:plugin
+zplug "lib/completion", from:oh-my-zsh
+
+zplug "plugins/ng",        from:oh-my-zsh, as:plugin
+zplug "plugins/git",       from:oh-my-zsh, as:plugin
+zplug "plugins/npm",       from:oh-my-zsh, as:plugin
+zplug "plugins/kind",      from:oh-my-zsh, as:plugin
+zplug "plugins/kops",      from:oh-my-zsh, as:plugin
+zplug "plugins/helm",      from:oh-my-zsh, as:plugin
+zplug "plugins/vault",     from:oh-my-zsh, as:plugin
+zplug "plugins/nomad",     from:oh-my-zsh, as:plugin
+zplug "plugins/docker",    from:oh-my-zsh, as:plugin
+zplug "plugins/dotnet",    from:oh-my-zsh, as:plugin
+zplug "plugins/swiftpm",   from:oh-my-zsh, as:plugin
+zplug "plugins/vagrant",   from:oh-my-zsh, as:plugin
+zplug "plugins/vi-mode",   from:oh-my-zsh, as:plugin
+zplug "plugins/kubectl",   from:oh-my-zsh, as:plugin
+zplug "plugins/minikube",  from:oh-my-zsh, as:plugin
 zplug "plugins/terraform", from:oh-my-zsh, as:plugin
-zplug "plugins/vagrant", from:oh-my-zsh, as:plugin
-zplug "plugins/vault", from:oh-my-zsh, as:plugin
-zplug "plugins/vi-mode", from:oh-my-zsh, as:plugin
-zplug "plugins/kind", from:oh-my-zsh, as:plugin
-zplug "plugins/helm", from:oh-my-zsh, as:plugin
-zplug "plugins/kubectl", from:oh-my-zsh, as:plugin
-zplug "plugins/dotnet", from:oh-my-zsh, as:plugin
+
+zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
 
 # Theme
-zplug "mafredri/zsh-async", from:github
+zplug "mafredri/zsh-async",        from:github
 zplug "chriskempson/base16-shell", from:github
+
+# Custom fork
 zplug "sowderca/pure", use:pure.zsh, from:github, as:theme
 
 # Install packages that have not yet been installed
@@ -109,25 +116,24 @@ if ! [[ -z $os_type ]]; then
 fi
 
 # Alias
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias ai="gh copilot"
 alias cls="clear"
-alias vim="nvim"
 alias bat="bat --theme gruvbox-dark"
-alias dir="ls -lh"
-alias del="rm"
-alias buck="buck2"
-alias chatgpt="aichat"
-alias powershell="pwsh"
-alias pass="read-password"
-alias start="open"
-alias tmux="env TERM=screen-256color tmux"
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
 alias help="tldr"
+alias buck="buck2"
+alias powershell="pwsh"
 alias hackernews="clx"
 
+# TODO: idk if this is needed....
+alias tmux="env TERM=screen-256color tmux"
+
 # An explicit check is needed here since git is used for configuration.
-(($+commands[hub])) && alias git="hub"
+(($+commands[hub])) &&  alias git="hub"
+
+# Explicitly check for neovim
+(($+commands[nvim])) && alias vim="nvim"
+
 
 if ! [[ -z $os_type ]]; then
   if ! [[ $os_type = *"Darwin"* ]]; then
@@ -138,12 +144,12 @@ if ! [[ -z $os_type ]]; then
     alias meld="org.gnome.meld"
     # Wayland use only
     if ! [[ -z $XDG_SESSION_TYPE ]]; then
-      if [[ $XDG_SESSION_TYPE = "wayland" ]]; then
+      if [[ $XDG_SESSION_TYPE = "x11" ]]; then
+        alias pbcopy="xclip"
+        alias pbpaste="xclip -o"
+      elif [[ $XDG_SESSION_TYPE = "wayland" ]]; then
         alias pbcopy="wl-copy"
         alias pbpaste="wl-paste"
-      elif [[ $XDG_SESSION_TYPE = "x11" ]]; then
-          alias pbcopy="xclip"
-          alias pbpaste="xclip -o"
       fi
     fi
   fi
@@ -157,6 +163,16 @@ fi
 # Add GOPATH binaries to path.
 if (($+commands[go])); then
   path+=("$(go env GOPATH)/bin")
+fi
+
+if (($+commands[gem])); then
+  gem_env="$(gem environment gempath)"
+  gem_paths=("${(s/:/)gem_env}")
+  for gem_path in $gem_paths; do
+    if [[ -d "${gem_path}/bin" ]]; then
+      path+=("${gem_path}/bin")
+    fi
+  done
 fi
 
 # Normal path setup
@@ -183,15 +199,15 @@ if ! [[ -z $os_type ]]; then
   if [[ $os_type = *"Darwin"* ]]; then
     path+=("${HOME}/Library/Python/3.9/bin")
     path+=("/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/")
-    path+=("/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/") 
+    path+=("/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/")
   fi
 fi
 
 export PATH
 
 # NVM / Node.js
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ]          && source "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 (($+commands[brew]))    && eval "$(brew shellenv)"
 (($+commands[jenv]))    && eval "$(jenv init -)"

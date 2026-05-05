@@ -1,9 +1,13 @@
 require('mason').setup()
--- require('mason-nvim-dap').setup()
--- require('mason-lspconfig').setup()
 require('treesitter-context').setup()
 
-require('blink.cmp').setup({
+
+local auto_complete = require('blink.cmp')
+
+local tool_config       = require('mason-lspconfig')
+local tool_installation = require('mason-tool-installer')
+
+auto_complete.setup({
   keymap = {
     preset = "default",
       ["<CR>"] = { "accept", "fallback" },
@@ -30,28 +34,84 @@ require('blink.cmp').setup({
 })
 
 
-vim.lsp.enable('angularls')
-vim.lsp.enable('awk')
-vim.lsp.enable('azure_pipelines_ls')
-vim.lsp.enable('ballerina')
-vim.lsp.enable('bashls')
-vim.lsp.enable('bicep')
-vim.lsp.enable('buck2')
-vim.lsp.enable('clangd')
-vim.lsp.enable('docker')
-vim.lsp.enable('elixirls')
-vim.lsp.enable('erlangls')
-vim.lsp.enable('eslint')
-vim.lsp.enable('gleam')
-vim.lsp.enable('gopls')
-vim.lsp.enable('graphql')
-vim.lsp.enable('helm_ls')
-vim.lsp.enable('html')
-vim.lsp.enable('jsonls')
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('lua-language-server')
-vim.lsp.enable('msbuild_project_tools_server')
-vim.lsp.enable('pearlls')
-vim.lsp.enable('powershell_es')
-vim.lsp.enable('sourcekit')
-vim.lsp.enable('v_analyzer')
+tool_config.setup({
+  automatic_enable = {
+    exclude = {
+      'cspell_ls'
+    }
+  }
+})
+
+tool_installation.setup({
+  ensure_installed = {
+    -- JSON
+    'json-lsp',
+
+    -- Web
+    'css-lsp',
+    'html-lsp',
+    'htmlhint',
+    'stylelint',
+
+    -- Angular
+    'angular-language-server',
+
+    -- Ansible
+    'ansible-lint',
+    'ansible-language-server',
+
+    -- C/C++
+    'clangd',
+    'clang-format',
+
+    -- Shell
+    'shellcheck',
+    'bash-debug-adapter',
+    'bash-language-server',
+
+    -- Go
+    'gopls',
+
+    -- .NET
+    'netcoredbg', -- This is not quite as good as the proper MS vscode one.
+    'csharp-language-server',
+    'powershell-editor-services',
+
+    -- JS/TS
+    'eslint-lsp',
+    'js-debug-adapter',
+    'typescript-language-server',
+
+    -- Markdown
+    'markdownlint',
+
+    -- DevOps
+    'opa',
+    'nomad',
+    'bicep-lsp',
+    'terraform-ls',
+    'azure-pipelines-language-server',
+
+    -- YAML
+    'yamllint',
+    'yaml-language-server',
+
+    -- Rust
+    'rust-analyzer',
+
+    -- SQL
+    'sqls',
+
+    -- Misc
+    'awk-language-server',
+    'lua-language-server',
+    'vim-language-server',
+
+    -- Spelling
+    'cspell',
+    'cspell-lsp',
+
+  }
+})
+
+vim.diagnostic.config({ virtual_text = false, virtual_lines = { current_line = true }, })
