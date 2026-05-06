@@ -1,5 +1,9 @@
 vim.pack.add({
 
+    -- Files
+    { src = 'https://github.com/ptzz/lf.vim'           },
+    { src = 'https://github.com/voldikss/vim-floaterm' },
+
     -- Fuzzy finder
     { src = 'https://github.com/junegunn/fzf'     },
     { src = 'https://github.com/junegunn/fzf.vim' },

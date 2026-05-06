@@ -38,7 +38,7 @@ tap 'thoughtbot/formulae'
 # Used alot for local prototyping.
 tap 'nats-io/nats-tools'
 
-tap 'isen-ng/dotnet-sdk-vesions' if OS.mac? and $DOTNET_DEV_TOOLS
+tap 'isen-ng/dotnet-sdk-versions' if OS.mac? and $DOTNET_DEV_TOOLS
 
 brew 'go'
 brew 'mas' if OS.mac?
@@ -68,6 +68,7 @@ brew 'sslscan'
 brew 'git-lfs'
 brew 'watchman'
 brew 'dos2unix'
+brew 'container' if OS.mac?
 brew 'protolint'
 brew 'cilium-cli'
 brew 'circumflex' # Hackernews TUI
@@ -133,6 +134,9 @@ if $GO_DEV_TOOLS
   go "github.com/go-delve/delve/cmd/dlv"
 
 end
+
+cargo 'below' if OS.linux?
+cargo 'tealdeer'
 
 # Rust and rust global binaries.
 if $RUST_DEV_TOOLS
@@ -213,7 +217,6 @@ if OS.mac?
   if $PERSONAL_MACHINE
     cask 'steam'
     cask 'discord'
-    cask 'sideloadly'
     cask 'qmk-toolbox'
     cask 'dungeon-crawl-stone-soup-console' # No TUI only version for macOS that works well.
   end
