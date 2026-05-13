@@ -40,6 +40,9 @@ tap 'nats-io/nats-tools'
 
 tap 'isen-ng/dotnet-sdk-versions' if OS.mac? and $DOTNET_DEV_TOOLS
 
+# Absolute garbage that we use at work.
+tap "checkmarx/ast-cli"
+
 brew 'go'
 brew 'mas' if OS.mac?
 brew 'krew'
@@ -90,6 +93,9 @@ brew 'nats-io/nats-tools/nats'
 
 brew 'teamookla/speedtest/speedtest'
 
+# Trash work tooling
+brew "checkmarx/ast-cli/ast-cli"
+
 # Some of these tools come bundled with Linux but are usually missing on macOS.
 brew 'jq'        if missing? 'jq'
 brew 'fzf'       if missing? 'fzf'
@@ -135,7 +141,6 @@ if $GO_DEV_TOOLS
 
 end
 
-cargo 'below' if OS.linux?
 cargo 'tealdeer'
 
 # Rust and rust global binaries.
@@ -144,11 +149,14 @@ if $RUST_DEV_TOOLS
 end
 
 if OS.linux?
+
   # Gnome applications that can function normally in a sandbox.
+  flatpak 'org.gnome.dspy'                 unless installed? 'org.gnome.dspy'
   flatpak 'org.gnome.Logs'                 unless installed? 'org.gnome.Logs'
   flatpak 'org.gnome.meld'                 unless installed? 'org.gnome.meld'
   flatpak 'org.gnome.Boxes'                unless installed? 'org.gnome.Boxes'
   flatpak 'org.gnome.Geary'                unless installed? 'org.gnome.Geary'
+  flatpak 'org.gnome.Manuals'              unless installed? 'org.gnome.Manuals'
   flatpak 'org.gnome.Weather'              unless installed? 'org.gnome.Weather'
   flatpak 'org.gnome.Podcasts'             unless installed? 'org.gnome.Podcasts'
   flatpak 'org.gnome.Contacts'             unless installed? 'org.gnome.Contacts'
@@ -160,6 +168,7 @@ if OS.linux?
 
 
   flatpak "com.slack.Slack"
+  flatpak 'app.devsuite.Schemes'
   flatpak "com.github.hugolabe.Wike" # Wikipedia
   flatpak "com.mattjakeman.ExtensionManager"
 
@@ -190,6 +199,9 @@ if OS.mac?
   cask 'microsoft-teams'
   cask 'citrix-workspace' # Hopefully one day this can be removed...
   cask 'visual-studio-code'
+
+  # AI PR 'helper'
+  cask 'coderabbit'
 
   if $DOTNET_DEV_TOOLS
     cask 'dotnet-sdk'

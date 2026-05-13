@@ -115,3 +115,14 @@ tool_installation.setup({
 })
 
 vim.diagnostic.config({ virtual_text = false, virtual_lines = { current_line = true }, })
+
+
+local sourcekit_config = {
+  cmd = { 'sourcekit-lsp' },
+  filetypes = { 'swift', 'objc', 'objcpp', 'c', 'cpp' },
+  root_markers = { 'Package.swift', '.git', 'compile_commands.json' },
+}
+
+-- Enable the server
+vim.lsp.enable("sourcekit")
+

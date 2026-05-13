@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh-preview
+#!/usr/bin/env pwsh
 #Requires -Version 7
 
 using namespace System;

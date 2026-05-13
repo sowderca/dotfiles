@@ -35,9 +35,10 @@ vim.pack.add({
     { src = 'https://github.com/christoomey/vim-tmux-navigator' },
 
     -- Autocomplete
-    { src = 'https://github.com/Saghen/blink.cmp', version = 'v1' },
+    { src = 'https://github.com/Saghen/blink.cmp', version = 'v1' }
 
 })
+
 
 require('nio')
 require('dap')
