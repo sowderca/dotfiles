@@ -221,8 +221,3 @@ if [[ -f ~/.go/bin/gocomplete ]]; then
 fi
 
 [[ -z $os_type ]] && unset os_type
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/sowderca/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
