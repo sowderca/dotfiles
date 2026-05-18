@@ -32,7 +32,7 @@ for tool in git curl brew nvm; do
   fi
 done
 
-cd ~/.dotfiles
+cd ~/.dotfiles || echo "Failed to change directory to ~/.dotfiles. Please check if the directory exists and try again." && exit 1
 
 echo -e "\n${purple}Setting up $os_type...${reset}\n"
 

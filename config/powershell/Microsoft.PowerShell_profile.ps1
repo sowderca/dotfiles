@@ -7,11 +7,11 @@ using namespace System.Management.Automation;
 
 Set-StrictMode -Version 'Latest';
 
-Import-Module 'PSReadline';
 Import-Module 'posh-git';
+Import-Module 'PSReadline';
 
-Set-PSReadlineOption -BellStyle 'None';
 Set-PSReadlineOption -EditMode 'Vi';
+Set-PSReadlineOption -BellStyle 'None';
 Set-PSReadlineOption -ExtraPromptLineCount 1;
 Set-PSReadlineOption -ViModeIndicator 'Prompt';
 Set-PSReadlineKeyHandler -Chord Tab -Function MenuComplete;
@@ -42,6 +42,7 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
             [CompletionResult]::new($_, $_, 'ParameterValue', $_);
         }
 };
+
 
 function Invoke-VimOnNT {
     $rep = $args -replace "\\","/";

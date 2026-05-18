@@ -35,7 +35,10 @@ vim.pack.add({
     { src = 'https://github.com/christoomey/vim-tmux-navigator' },
 
     -- Autocomplete
-    { src = 'https://github.com/Saghen/blink.cmp', version = 'v1' }
+    { src = 'https://github.com/Saghen/blink.cmp', version = 'v1' },
+
+    -- Copilot
+    { src = 'https://github.com/github/copilot.vim' }
 
 })
 
