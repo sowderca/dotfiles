@@ -14,7 +14,7 @@ end
 
 def installed?(app)
   if not missing?('flatpak')
-    return `which #{app} 2>/dev/null`.empty?
+    return `command -v #{app} 2>/dev/null`.empty?
   else
     return false
   end
@@ -121,15 +121,17 @@ krew 'krew'
 
 # Go and go global binaries.
 go 'sigs.k8s.io/bom/cmd/bom'
-go "github.com/posener/complete/gocomplete"
+go 'github.com/posener/complete/gocomplete'
 
 if $GO_DEV_TOOLS
 
   go 'golang.org/x/tools/gopls'
   go 'golang.org/x/tools/cmd/digraph'
   go 'golang.org/x/tools/cmd/deadcode'
+  go 'golang.org/x/tools/cmd/stringer'
   go 'golang.org/x/tools/cmd/goimports'
   go 'golang.org/x/tools/cmd/callgraph'
+  go 'golang.org/x/tools/cmd/toolstash'
 
   go 'google.golang.org/protobuf/cmd/protoc-gen-go'
   go 'google.golang.org/grpc/cmd/protoc-gen-go-grpc'
@@ -178,6 +180,12 @@ if OS.linux?
     flatpak 'com.discordapp.Discord'
     flatpak 'org.prismlauncher.PrismLauncher'
     flatpak 'community.pathofbuilding.PathOfBuilding'
+
+    # This is in beta-ish...only used for work destiny.
+    unless installed? 'com.nvidia.geforcenow'
+      flatpak 'com.nvidia.geforcenow', remote: GForceNow, url: 'https://international.download.nvidia.com/GFNLinux/flat' 
+    end
+
   end
 end
 

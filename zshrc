@@ -182,6 +182,8 @@ path+=("/opt/hermes")
 path+=("/opt/omi/bin")
 path+=("/opt/local/bin")
 path+=("/usr/local/sbin")
+
+# Home path setup.
 path+=("${HOME}/.porter")
 path+=("${HOME}/.tiup/bin")
 path+=("${HOME}/.yarn/bin")
