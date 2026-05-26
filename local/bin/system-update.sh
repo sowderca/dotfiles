@@ -39,8 +39,14 @@ function system-update() {
     if [[ $os_type = *"Darwin"* ]]; then
       if (( $#what_if_flag )); then
         softwareupdate --list
+        if (($+commands[mas])); then
+          mas outdated
+        fi
       else
         softwareupdate --install --all
+        if (($+commands[mas])); then
+          mas upgrade
+        fi
       fi
     else
       if (($+commands[cachy-update])); then
@@ -58,10 +64,18 @@ function system-update() {
       brew upgrade --dry-run
       brew upgrade --dry-run --cask
     else
-      brew cleanup
-      brew update
-      brew upgrade
-      brew upgrade --cask
+      brew bundle check || brew bundle install
+    fi
+  fi
+
+  if (($+commands[dotnet])); then
+    if [[ -f "~/.dotfiles/local/bin/update-global-dotnet-tools.ps1" ]]; then
+      if ! (( $#what_if_flag )); then
+        pwsh ~/.dotfiles/local/bin/update-global-dotnet-tools.ps1
+      else
+        echo "${green}To update global .NET tools, run:${reset}"
+        echo "${green}pwsh ~/.dotfiles/local/bin/update-global-dotnet-tools.ps1${reset}"
+      fi
     fi
   fi
 
