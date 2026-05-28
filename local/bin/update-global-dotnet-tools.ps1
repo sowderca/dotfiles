@@ -20,7 +20,6 @@ $tools = &dotnet tool list --global --format=json | ConvertFrom-Json;
     'dotnet-sos',
     'dotnet-repl',
     'dotnet-dump',
-    'dotnet-debug',
     'dotnet-trace',
     'dotnet-stack',
     'dotnet-gcdump',
@@ -28,20 +27,15 @@ $tools = &dotnet tool list --global --format=json | ConvertFrom-Json;
     'dotnet-symbol',
     'dotnet-monitor',
     'dotnet-counters',
-    'dotnet-outdated',
     'dotnet-coverage',
     'dotnet-dsrouter',
+    'dotnet-outdated-tool',
     'dotnet-debugger-extensions',
 
     # Extras
     'ilspycmd',
     'aspire.cli'
 );
-
-if ($IsMacOS) {
-    # Only supported on Windows and Linux.
-    [void] $commonTools.Remove('dotnet-debug');
-}
 
 $commonTools | ForEach-Object {
     if ($_ -notin $tools.data.packageId) {
