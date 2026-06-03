@@ -177,6 +177,7 @@ if OS.linux?
   # <3 Morrowind & Path Of Exile.
   if $PERSONAL_MACHINE
     flatpak 'org.openmw.OpenMW'
+    flatpak 'tv.plex.PlexDesktop'
     flatpak 'com.discordapp.Discord'
     flatpak 'org.prismlauncher.PrismLauncher'
     flatpak 'community.pathofbuilding.PathOfBuilding'
