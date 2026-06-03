@@ -236,6 +236,7 @@ if OS.mac?
 
   # Gaming things.
   if $PERSONAL_MACHINE
+    cask 'plex'
     cask 'steam'
     cask 'discord'
     cask 'qmk-toolbox'
