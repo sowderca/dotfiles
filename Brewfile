@@ -281,7 +281,7 @@ if OS.wsl?
   winget "Microsoft Visual Studio Code", id: "Microsoft.VisualStudioCode", source: "winget"
 
   # DevOps tooling
-  winget "Helm", id: "Helm.Helm", source "winget"
+  winget "Helm", id: "Helm.Helm", source: "winget"
   winget "Hubble", id: "Cilium.Hubble", source: "winget"
   winget "Cilium CLI", id: "Cilium.CLI", source: "winget"
   winget "Kubernetes CLI", id: "Kubernetes.kubectl", source: "winget"
