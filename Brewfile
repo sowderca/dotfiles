@@ -268,11 +268,60 @@ if OS.mac?
 
 end
 
+if OS.wsl?
+
+  # This is still in TODO status...
+  # Need to automate a bunch of OS stuff in pwsh or ansible... Will only test in winboat / parallels since I no longer have a windows machine.
+
+  # Basics
+  winget "Edit", id: "Microsoft.Edit", source: "winget"
+  winget "WinDbg", id: "9PGJGD53TN86", source: "msstore"
+  winget "PowerShell", id: "9MZ1SNWT0N5D", source: "msstore"
+  winget "Windows Performance Analyzer", id: "9N0W1B2BXGNZ", source: "msstore"
+  winget "Microsoft Visual Studio Code", id: "Microsoft.VisualStudioCode", source: "winget"
+
+  # DevOps tooling
+  winget "Helm", id: "Helm.Helm", source "winget"
+  winget "Hubble", id: "Cilium.Hubble", source: "winget"
+  winget "Cilium CLI", id: "Cilium.CLI", source: "winget"
+  winget "Kubernetes CLI", id: "Kubernetes.kubectl", source: "winget"
+  winget "Docker Desktop", id: "Docker.DockerDesktop", source: "winget"
+
+  # Hashicorp tooling
+  winget "Vagrant", id: "Hashicorp.Vagrant", source: "winget"
+  winget "Hashicorp Vault", id: "Hashicorp.Vault", source: "winget"
+  winget "Hashicorp Nomad", id: "Hashicorp.Nomad", source: "winget"
+  winget "Hashicorp Packer", id: "Hashicorp.Packer", source: "winget"
+  winget "Hashicorp Consul", id: "Hashicorp.Consul", source: "winget"
+  winget "Hashicorp Terraform", id: "Hashicorp.Terraform", source: "winget"
+
+  if $DOTNET_DEV_TOOLS
+    # Install features manually for now... :(
+    winget "Visual Studio Enterprise 2026", id: "Microsoft.VisualStudio.Enterprise", source: "winget"
+    winget "Microsoft SQL Server Management Studio 22", id: "Microsoft.SQLServerManagementStudio.22", sourec: "winget"
+  end
+
+  if $AZURE_DEV_TOOLS
+    winget "Bicep CLI", id: "Microsoft.Bicep", source: "winget"
+    winget "Microsoft Azure CLI", id: "Microsoft.AzureCLI", source: "winget"
+    winget "Azure Cosmos DB Emulator", id: "Microsoft.Azure.CosmosEmulator", source: "winget"
+    winget "Azure Function Core Tools", id: "Microsoft.Azure.FunctionsCoreTools", source: "winget"
+    winget "Microsoft Azure Storage Explorer",  id: "Microsoft.Azure.StorageExplorer", source: "winget"
+    winget "Microsoft Azure Storage Emulator",  id: "Microsoft.Azure.StorageEmulator", source: "winget"
+  end
+
+  if $PERSONAL_MACHINE
+    winget "Steam", id: "Valve.Steam", source: "winget"
+    winget "Discord", id: "Discord.Discord", source: "winget"
+    winget "PowerToys", id: "XP89DCGQ3K6VLD", source: "msstore"
+  end
+
+end
+
 # Minimum VSCode extensions.
 vscode 'vscodevim.vim'
 vscode 'jdinhlife.gruvbox'
 vscode 'vscode-icons-team.vscode-icons'
-
 
 # These have gotten out of hand.... I can clean up from my mac.
 vscode "13xforever.language-x86-64-assembly"
