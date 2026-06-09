@@ -143,7 +143,7 @@ if $GO_DEV_TOOLS
 
 end
 
-cargo 'tealdeer'
+cargo 'tealdeer' # This is newer version of tldr.
 
 # Rust and rust global binaries.
 if $RUST_DEV_TOOLS
