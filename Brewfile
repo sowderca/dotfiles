@@ -1,7 +1,5 @@
 # vim: set ft=ruby: #
 
-ENV['HOMEBREW_REQUIRE_TAP_TRUST'] = 1
-
 $PERSONAL_MACHINE = `hostname`.include?('sowderca')
 
 $GO_DEV_TOOLS     = true
@@ -13,9 +11,7 @@ $DOTNET_DEV_TOOLS = true
 
 
 # If there is a built-in API to do this via Homebrew that'd be great...
-def missing?(cmd)
-  return `which #{cmd} 2>/dev/null`.empty?
-end
+def missing?(cmd) = `which #{cmd} 2>/dev/null`.empty?
 
 def installed?(app)
   if not missing?('flatpak')
@@ -26,7 +22,7 @@ def installed?(app)
 end
 
 # MS cloud tooling.
-tap 'dapr/tap', trusted: true
+tap 'dapr/tap',        trusted: true
 
 tap 'azure/azd',       trusted: true
 tap 'azure/bicep',     trusted: true
