@@ -1,11 +1,16 @@
 # vim: set ft=ruby: #
+
+ENV['HOMEBREW_REQUIRE_TAP_TRUST'] = 1
+
 $PERSONAL_MACHINE = `hostname`.include?('sowderca')
 
 $GO_DEV_TOOLS     = true
+$NODE_DEV_TOOLS   = true
 $RUST_DEV_TOOLS   = false
 $JAVA_DEV_TOOLS   = true
 $AZURE_DEV_TOOLS  = true
 $DOTNET_DEV_TOOLS = true
+
 
 # If there is a built-in API to do this via Homebrew that'd be great...
 def missing?(cmd)
@@ -21,27 +26,27 @@ def installed?(app)
 end
 
 # MS cloud tooling.
-tap 'dapr/tap'
+tap 'dapr/tap', trusted: true
 
-tap 'azure/azd'
-tap 'azure/bicep'
-tap 'azure/functions'
+tap 'azure/azd',       trusted: true
+tap 'azure/bicep',     trusted: true
+tap 'azure/functions', trusted: true
 
 # More corpo tooling.
-tap 'facebook/fb'
-tap 'hashicorp/tap'
+tap 'facebook/fb',   trusted: true
+tap 'hashicorp/tap', trusted: true
 
 # Useful things.
-tap 'teamookla/speedtest'
-tap 'thoughtbot/formulae'
+tap 'teamookla/speedtest', trusted: true
+tap 'thoughtbot/formulae', trusted: true
 
 # Used alot for local prototyping.
-tap 'nats-io/nats-tools'
+tap 'nats-io/nats-tools', trusted: true
 
-tap 'isen-ng/dotnet-sdk-versions' if OS.mac? and $DOTNET_DEV_TOOLS
+tap 'isen-ng/dotnet-sdk-versions', trusted: true if OS.mac? and $DOTNET_DEV_TOOLS
 
 # Absolute garbage that we use at work.
-tap "checkmarx/ast-cli"
+tap "checkmarx/ast-cli", trusted: true
 
 brew 'go'
 brew 'mas' if OS.mac?
@@ -119,6 +124,15 @@ brew 'nuget' if $DOTNET_DEV_TOOLS
 krew 'aks'
 krew 'krew'
 
+if $NODE_DEV_TOOLS and installed? 'nvm'
+  npm 'neovim'
+  npm 'firebase-tools'
+  # Work still uses global tooling in some automation...
+  npm '@angular/cli'
+  npm '@blackbaud-internal/sky-cli'
+  npm '@blackbaud-internal/skyux-cli'
+end
+
 # Go and go global binaries.
 go 'sigs.k8s.io/bom/cmd/bom'
 go 'github.com/posener/complete/gocomplete'
@@ -184,7 +198,7 @@ if OS.linux?
 
     # This is in beta-ish...only used for work destiny.
     unless installed? 'com.nvidia.geforcenow'
-      flatpak 'com.nvidia.geforcenow', remote: GForceNow, url: 'https://international.download.nvidia.com/GFNLinux/flat' 
+      flatpak 'com.nvidia.geforcenow', remote: 'GForceNow', url: 'https://international.download.nvidia.com/GFNLinux/flat' 
     end
 
   end
@@ -322,138 +336,3 @@ end
 vscode 'vscodevim.vim'
 vscode 'jdinhlife.gruvbox'
 vscode 'vscode-icons-team.vscode-icons'
-
-# These have gotten out of hand.... I can clean up from my mac.
-vscode "13xforever.language-x86-64-assembly"
-vscode "alefragnani.project-manager"
-vscode "angular.ng-template"
-vscode "anweber.httpbook"
-vscode "anweber.vscode-httpyac"
-vscode "arcsector.vscode-splunk-search-syntax"
-vscode "argutec.argutec-azure-repos"
-vscode "azat-io.vscode-gruvbox-icon-theme"
-vscode "bdavs.expect"
-vscode "be5invis.toml"
-vscode "coderabbit.coderabbit-vscode"
-vscode "dan-c-underwood.arm"
-vscode "darian-benam.vscode-robots-dot-txt-support"
-vscode "davidanson.vscode-markdownlint"
-vscode "dbaeumer.vscode-eslint"
-vscode "docker.docker"
-vscode "dotjoshjohnson.xml"
-vscode "drblury.protobuf-vsc"
-vscode "drcika.apc-extension"
-vscode "editorconfig.editorconfig"
-vscode "erlang-ls.erlang-ls"
-vscode "estivo.csv-editor"
-vscode "fabiospampinato.vscode-todo-plus"
-vscode "github.copilot-chat"
-vscode "github.vscode-pull-request-github"
-vscode "gleam.gleam"
-vscode "golang.go"
-vscode "graphql.vscode-graphql-syntax"
-vscode "hashicorp.terraform"
-vscode "hbenl.vscode-test-explorer"
-vscode "humao.rest-client"
-vscode "ide-innovation-lab.cangjie"
-vscode "ionide.ionide-fsharp"
-vscode "ionutvmi.reg"
-vscode "jdinhlife.gruvbox"
-vscode "jtavin.ldif"
-vscode "kcl.kcl-vscode-extension"
-vscode "llvm-vs-code-extensions.lldb-dap"
-vscode "lucono.karma-test-explorer"
-vscode "mike-lischke.vscode-antlr4"
-vscode "mindaro-dev.file-downloader"
-vscode "mint-lang.mint"
-vscode "ms-azure-devops.azure-pipelines"
-vscode "ms-azure-load-testing.microsoft-testing"
-vscode "ms-azuretools.azure-dev"
-vscode "ms-azuretools.vscode-azure-github-copilot"
-vscode "ms-azuretools.vscode-azure-mcp-server"
-vscode "ms-azuretools.vscode-azureappservice"
-vscode "ms-azuretools.vscode-azurecontainerapps"
-vscode "ms-azuretools.vscode-azurefunctions"
-vscode "ms-azuretools.vscode-azureresourcegroups"
-vscode "ms-azuretools.vscode-azurestaticwebapps"
-vscode "ms-azuretools.vscode-azurestorage"
-vscode "ms-azuretools.vscode-azurevirtualmachines"
-vscode "ms-azuretools.vscode-bicep"
-vscode "ms-azuretools.vscode-containers"
-vscode "ms-azuretools.vscode-cosmosdb"
-vscode "ms-azuretools.vscode-docker"
-vscode "ms-azuretools.vscode-documentdb"
-vscode "ms-dotnettools.csdevkit"
-vscode "ms-dotnettools.csharp"
-vscode "ms-dotnettools.vscode-dotnet-modernize"
-vscode "ms-dotnettools.vscode-dotnet-runtime"
-vscode "ms-edgedevtools.vscode-edge-devtools"
-vscode "ms-kubernetes-tools.kind-vscode"
-vscode "ms-kubernetes-tools.vscode-aks-tools"
-vscode "ms-kubernetes-tools.vscode-kubernetes-tools"
-vscode "ms-mssql.data-workspace-vscode"
-vscode "ms-mssql.mssql"
-vscode "ms-mssql.sql-bindings-vscode"
-vscode "ms-mssql.sql-database-projects-vscode"
-vscode "ms-ossdata.vscode-pgsql"
-vscode "ms-python.debugpy"
-vscode "ms-python.python"
-vscode "ms-python.vscode-pylance"
-vscode "ms-python.vscode-python-envs"
-vscode "ms-sarifvscode.sarif-viewer"
-vscode "ms-toolsai.datawrangler"
-vscode "ms-toolsai.jupyter"
-vscode "ms-toolsai.jupyter-keymap"
-vscode "ms-toolsai.jupyter-renderers"
-vscode "ms-toolsai.vscode-jupyter-cell-tags"
-vscode "ms-toolsai.vscode-jupyter-slideshow"
-vscode "ms-vscode-remote.remote-containers"
-vscode "ms-vscode-remote.remote-ssh"
-vscode "ms-vscode-remote.remote-ssh-edit"
-vscode "ms-vscode-remote.remote-wsl"
-vscode "ms-vscode-remote.vscode-remote-extensionpack"
-vscode "ms-vscode.cpptools"
-vscode "ms-vscode.makefile-tools"
-vscode "ms-vscode.powershell"
-vscode "ms-vscode.remote-explorer"
-vscode "ms-vscode.remote-server"
-vscode "ms-vscode.test-adapter-converter"
-vscode "ms-vscode.vscode-node-azure-pack"
-vscode "ms-vsliveshare.vsliveshare"
-vscode "ms-windows-ai-studio.windows-ai-studio"
-vscode "msjsdiag.vscode-react-native"
-vscode "mtxr.sqltools"
-vscode "mtxr.sqltools-driver-mysql"
-vscode "peerstudios.buck2-lsp-adapter"
-vscode "poml-team.poml"
-vscode "redhat.fabric8-analytics"
-vscode "redhat.java"
-vscode "redhat.vscode-xml"
-vscode "redhat.vscode-yaml"
-vscode "rosshamish.kuskus-kusto-syntax-highlighting"
-vscode "rust-lang.rust-analyzer"
-vscode "serpen.vbsvscode"
-vscode "shopify.ruby-lsp"
-vscode "streetsidesoftware.code-spell-checker"
-vscode "stylelint.vscode-stylelint"
-vscode "sumneko.lua"
-vscode "swiftlang.swift-vscode"
-vscode "syler.sass-indented"
-vscode "teamsdevapp.vscode-ai-foundry"
-vscode "tintoy.msbuild-project-tools"
-vscode "typespec.typespec-vscode"
-vscode "vadimcn.vscode-lldb"
-vscode "vosca.vscode-v-analyzer"
-vscode "vscjava.vscode-gradle"
-vscode "vscjava.vscode-java-debug"
-vscode "vscjava.vscode-java-dependency"
-vscode "vscjava.vscode-java-pack"
-vscode "vscjava.vscode-java-test"
-vscode "vscjava.vscode-java-upgrade"
-vscode "vscjava.vscode-maven"
-vscode "vscode-icons-team.vscode-icons"
-vscode "vscodevim.vim"
-vscode "wayou.vscode-todo-highlight"
-vscode "webben.browserslist"
-vscode "wso2.ballerina"
-vscode "wso2.wso2-platform"
