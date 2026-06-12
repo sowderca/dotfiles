@@ -22,14 +22,14 @@ def installed?(app)
 end
 
 # MS cloud tooling.
-tap 'dapr/tap',        trusted: true
+tap 'dapr/tap', trusted: true
 
-tap 'azure/azd',       trusted: true
-tap 'azure/bicep',     trusted: true
+tap 'azure/azd', trusted: true
+tap 'azure/bicep', trusted: true
 tap 'azure/functions', trusted: true
 
 # More corpo tooling.
-tap 'facebook/fb',   trusted: true
+tap 'facebook/fb', trusted: true
 tap 'hashicorp/tap', trusted: true
 
 # Useful things.
@@ -37,12 +37,12 @@ tap 'teamookla/speedtest', trusted: true
 tap 'thoughtbot/formulae', trusted: true
 
 # Used alot for local prototyping.
-tap 'nats-io/nats-tools', trusted: true
+tap 'nats-io/nats-tools',  trusted: true
 
 tap 'isen-ng/dotnet-sdk-versions', trusted: true if OS.mac? and $DOTNET_DEV_TOOLS
 
 # Absolute garbage that we use at work.
-tap "checkmarx/ast-cli", trusted: true
+tap 'checkmarx/ast-cli', trusted: true
 
 brew 'go'
 brew 'mas' if OS.mac?
@@ -61,32 +61,34 @@ brew 'kind'
 brew 'tree'
 brew 'grpc'
 brew 'serf'
-brew 'helm'
+brew 'helm' if not OS.wsl?
 brew 'rbenv'
 brew 'rbenv'
 brew 'trash', link: true if OS.mac?
 brew 'neovim'
-brew 'hubble'
+brew 'hubble' if not OS.wsl?
 brew 'ansible'
 brew 'sslscan'
-brew 'git-lfs'
+brew 'git-lfs' if not OS.wsl?
 brew 'watchman'
 brew 'dos2unix'
 brew 'container' if OS.mac?
 brew 'protolint'
-brew 'cilium-cli'
+brew 'cilium-cli' if not OS.wsl?
 brew 'circumflex' # Hackernews TUI
 brew 'ipinfo-cli'
-brew 'kubernetes-cli'
+brew 'kubernetes-cli' if not OS.wsl?
 brew 'reattach-to-user-namespace' if OS.mac?
 
 # Hashicorp tooling.
-brew 'hashicorp/tap/nomad'
-brew 'hashicorp/tap/vault'
-brew 'hashicorp/tap/consul'
-brew 'hashicorp/tap/packer'
-brew 'hashicorp/tap/sentinel'
-brew 'hashicorp/tap/terraform'
+if not OS.wsl?
+  brew 'hashicorp/tap/nomad'
+  brew 'hashicorp/tap/vault'
+  brew 'hashicorp/tap/consul'
+  brew 'hashicorp/tap/packer'
+  brew 'hashicorp/tap/sentinel'
+  brew 'hashicorp/tap/terraform'
+end
 
 # NATS tooling.
 brew 'nats-io/nats-tools/nsc'
@@ -95,7 +97,7 @@ brew 'nats-io/nats-tools/nats'
 brew 'teamookla/speedtest/speedtest'
 
 # Trash work tooling
-brew "checkmarx/ast-cli/ast-cli"
+brew 'checkmarx/ast-cli/ast-cli'
 
 # Some of these tools come bundled with Linux but are usually missing on macOS.
 brew 'jq'        if missing? 'jq'
@@ -117,8 +119,10 @@ brew 'ballerina' if $JAVA_DEV_TOOLS
 brew 'nuget' if $DOTNET_DEV_TOOLS
 
 # k8s cli plugins
-krew 'aks'
-krew 'krew'
+if not OS.wsl?
+  krew 'aks'
+  krew 'krew'
+end
 
 if $NODE_DEV_TOOLS and installed? 'nvm'
   npm 'neovim'
@@ -146,10 +150,10 @@ if $GO_DEV_TOOLS
   go 'google.golang.org/protobuf/cmd/protoc-gen-go'
   go 'google.golang.org/grpc/cmd/protoc-gen-go-grpc'
 
-  go "github.com/google/gops"
-  go "github.com/google/wire/cmd/wire"
+  go 'github.com/google/gops'
+  go 'github.com/google/wire/cmd/wire'
 
-  go "github.com/go-delve/delve/cmd/dlv"
+  go 'github.com/go-delve/delve/cmd/dlv'
 
 end
 
@@ -176,13 +180,13 @@ if OS.linux?
   flatpak 'org.gnome.TextEditor'           unless installed? 'org.gnome.TextEditor'
   flatpak 'org.gnome.Connections'          unless installed? 'org.gnome.Connections'
   flatpak 'org.gnome.font-viewer'          unless installed? 'org.gnome.font-viewer'
-  flatpak "org.gnome.seahorse.Application" unless installed? "org.gnome.seahorse.Application"
+  flatpak 'org.gnome.seahorse.Application' unless installed? 'org.gnome.seahorse.Application'
 
 
-  flatpak "com.slack.Slack"
+  flatpak 'com.slack.Slack'
   flatpak 'app.devsuite.Schemes'
-  flatpak "com.github.hugolabe.Wike" # Wikipedia
-  flatpak "com.mattjakeman.ExtensionManager"
+  flatpak 'com.github.hugolabe.Wike' # Wikipedia
+  flatpak 'com.mattjakeman.ExtensionManager'
 
   # <3 Morrowind & Path Of Exile.
   if $PERSONAL_MACHINE
@@ -241,7 +245,7 @@ if OS.mac?
     brew 'azure/bicep/bicep'
     brew 'azure/functions/azure-functions-core-tools'
 
-    cask "microsoft-azure-storage-explorer"
+    cask 'microsoft-azure-storage-explorer'
   end
 
   # Gaming things.
@@ -258,72 +262,72 @@ if OS.mac?
   end
 
   # I use more but need to slim down whats required.
-  mas "Xcode", id: 497799835
-  mas "Slack", id: 803453959
-  mas "Sketch", id: 1667260533
-  mas "Keyshape", id: 1223341056
-  mas "Developer", id: 640199958
-  mas "TestFlight", id: 899247664
-  mas "OmniGraffle", id: 1142578753
-  mas "Windows App", id: 1295203466
-  mas "Microsoft Excel", id: 462058435
-  mas "Affinity Photo 2", id: 1616822987
-  mas "Affinity Designer 2", id: 1616831348
-  mas "Affinity Publisher 2", id: 1606941598
+  mas 'Xcode', id: 497799835
+  mas 'Slack', id: 803453959
+  mas 'Sketch', id: 1667260533
+  mas 'Keyshape', id: 1223341056
+  mas 'Developer', id: 640199958
+  mas 'TestFlight', id: 899247664
+  mas 'OmniGraffle', id: 1142578753
+  mas 'Windows App', id: 1295203466
+  mas 'Microsoft Excel', id: 462058435
+  mas 'Affinity Photo 2', id: 1616822987
+  mas 'Affinity Designer 2', id: 1616831348
+  mas 'Affinity Publisher 2', id: 1606941598
 
   # Usually to the other linux machine on the home local network.
   if $PERSONAL_MACHINE
-    mas "Steam Link", id: 1246969117
+    mas 'Steam Link', id: 1246969117
   end
 
 end
 
 if OS.wsl?
 
-  # This is still in TODO status...
-  # Need to automate a bunch of OS stuff in pwsh or ansible... Will only test in winboat / parallels since I no longer have a windows machine.
-
   # Basics
-  winget "Edit", id: "Microsoft.Edit", source: "winget"
-  winget "WinDbg", id: "9PGJGD53TN86", source: "msstore"
-  winget "PowerShell", id: "9MZ1SNWT0N5D", source: "msstore"
-  winget "Windows Performance Analyzer", id: "9N0W1B2BXGNZ", source: "msstore"
-  winget "Microsoft Visual Studio Code", id: "Microsoft.VisualStudioCode", source: "winget"
+  winget 'Edit', id: 'Microsoft.Edit', source: 'winget'
+  winget 'WinDbg', id: '9PGJGD53TN86', source: 'msstore'
+  winget 'PowerToys', id: 'XP89DCGQ3K6VLD', source: 'msstore'
+  winget 'TablePlus', id: 'TablePlus.TablePlus', source: 'winget'
+  winget 'PowerShell', id: '9MZ1SNWT0N5D', source: 'msstore'
+  winget 'Sysinternals Suite', id: '9P7KNL5RWT25', source: 'msstore'
+  winget 'Windows Performance Analyzer', id: '9N0W1B2BXGNZ', source: 'msstore'
+  winget 'Microsoft Visual Studio Code', id: 'Microsoft.VisualStudioCode', source: 'winget'
 
   # DevOps tooling
-  winget "Helm", id: "Helm.Helm", source: "winget"
-  winget "Hubble", id: "Cilium.Hubble", source: "winget"
-  winget "Cilium CLI", id: "Cilium.CLI", source: "winget"
-  winget "Kubernetes CLI", id: "Kubernetes.kubectl", source: "winget"
-  winget "Docker Desktop", id: "Docker.DockerDesktop", source: "winget"
+  winget 'Helm', id: 'Helm.Helm', source: 'winget'
+  winget 'Hubble', id: 'Cilium.Hubble', source: 'winget'
+  winget 'Cilium CLI', id: 'Cilium.CLI', source: 'winget'
+  winget 'Kubernetes CLI', id: 'Kubernetes.kubectl', source: 'winget'
+  winget 'Docker Desktop', id: 'Docker.DockerDesktop', source: 'winget'
 
   # Hashicorp tooling
-  winget "Vagrant", id: "Hashicorp.Vagrant", source: "winget"
-  winget "Hashicorp Vault", id: "Hashicorp.Vault", source: "winget"
-  winget "Hashicorp Nomad", id: "Hashicorp.Nomad", source: "winget"
-  winget "Hashicorp Packer", id: "Hashicorp.Packer", source: "winget"
-  winget "Hashicorp Consul", id: "Hashicorp.Consul", source: "winget"
-  winget "Hashicorp Terraform", id: "Hashicorp.Terraform", source: "winget"
+  winget 'Vagrant', id: 'Hashicorp.Vagrant', source: 'winget'
+  winget 'Hashicorp Vault', id: 'Hashicorp.Vault', source: 'winget'
+  winget 'Hashicorp Nomad', id: 'Hashicorp.Nomad', source: 'winget'
+  winget 'Hashicorp Packer', id: 'Hashicorp.Packer', source: 'winget'
+  winget 'Hashicorp Consul', id: 'Hashicorp.Consul', source: 'winget'
+  winget 'Hashicorp Terraform', id: 'Hashicorp.Terraform', source: 'winget'
 
   if $DOTNET_DEV_TOOLS
     # Install features manually for now... :(
-    winget "Visual Studio Enterprise 2026", id: "Microsoft.VisualStudio.Enterprise", source: "winget"
-    winget "Microsoft SQL Server Management Studio 22", id: "Microsoft.SQLServerManagementStudio.22", sourec: "winget"
+    winget 'Visual Studio Enterprise 2026', id: 'Microsoft.VisualStudio.Enterprise', source: 'winget'
+    winget 'Microsoft SQL Server Management Studio 22', id: 'Microsoft.SQLServerManagementStudio.22', sourec: 'winget'
   end
 
   if $AZURE_DEV_TOOLS
-    winget "Bicep CLI", id: "Microsoft.Bicep", source: "winget"
-    winget "Microsoft Azure CLI", id: "Microsoft.AzureCLI", source: "winget"
-    winget "Azure Cosmos DB Emulator", id: "Microsoft.Azure.CosmosEmulator", source: "winget"
-    winget "Azure Function Core Tools", id: "Microsoft.Azure.FunctionsCoreTools", source: "winget"
-    winget "Microsoft Azure Storage Explorer",  id: "Microsoft.Azure.StorageExplorer", source: "winget"
-    winget "Microsoft Azure Storage Emulator",  id: "Microsoft.Azure.StorageEmulator", source: "winget"
+    winget 'Bicep CLI', id: 'Microsoft.Bicep', source: 'winget'
+    winget 'Microsoft Azure CLI', id: 'Microsoft.AzureCLI', source: 'winget'
+    winget 'Azure Cosmos DB Emulator', id: 'Microsoft.Azure.CosmosEmulator', source: 'winget'
+    winget 'Azure Function Core Tools', id: 'Microsoft.Azure.FunctionsCoreTools', source: 'winget'
+    winget 'Microsoft Azure Storage Explorer',  id: 'Microsoft.Azure.StorageExplorer', source: 'winget'
+    winget 'Microsoft Azure Storage Emulator',  id: 'Microsoft.Azure.StorageEmulator', source: 'winget'
   end
 
   if $PERSONAL_MACHINE
-    winget "Steam", id: "Valve.Steam", source: "winget"
-    winget "Discord", id: "Discord.Discord", source: "winget"
-    winget "PowerToys", id: "XP89DCGQ3K6VLD", source: "msstore"
+    winget 'Steam', id: 'Valve.Steam', source: 'winget'
+    winget 'Discord', id: 'Discord.Discord', source: 'winget'
+    winget 'SteamCMD', id: 'Valve.SteamCMD', source: 'winget'
   end
 
 end
