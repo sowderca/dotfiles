@@ -13,7 +13,7 @@ auto_complete.setup({
       ["<CR>"] = { "accept", "fallback" },
       ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
       ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
-    },
+  },
   cmdline = {
     keymap = {
       ["<ESC>"] = {
@@ -31,13 +31,6 @@ auto_complete.setup({
     default = { "lsp", "path", "buffer" },
   },
   signature = { enabled = true },
-  completion = {
-    menu = {
-      draw = {
-        -- columns = { { 'label', 'label_description', gap = 1 }, { 'kind' } }
-      }
-    }
-  }
 })
 
 
@@ -123,13 +116,6 @@ tool_installation.setup({
 
 vim.diagnostic.config({ virtual_text = false, virtual_lines = { current_line = true }, })
 
-
-local sourcekit_config = {
-  cmd = { 'sourcekit-lsp' },
-  filetypes = { 'swift', 'objc', 'objcpp', 'c', 'cpp' },
-  root_markers = { 'Package.swift', '.git', 'compile_commands.json' },
-}
-
--- Enable the server
+-- TODO get this working on linux.
 vim.lsp.enable("sourcekit")
 
