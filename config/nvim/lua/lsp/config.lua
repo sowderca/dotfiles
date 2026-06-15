@@ -30,7 +30,14 @@ auto_complete.setup({
   sources = {
     default = { "lsp", "path", "buffer" },
   },
-  signature = { enabled = true }
+  signature = { enabled = true },
+  completion = {
+    menu = {
+      draw = {
+        -- columns = { { 'label', 'label_description', gap = 1 }, { 'kind' } }
+      }
+    }
+  }
 })
 
 

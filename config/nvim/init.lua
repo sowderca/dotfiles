@@ -9,8 +9,16 @@ vim.pack.add({
     { src = 'https://github.com/junegunn/fzf.vim' },
 
     -- Unit testing
-    { src = 'https://github.com/nvim-neotest/neotest'  },
-    { src = 'https://github.com/nvim-neotest/nvim-nio' },
+    { src = 'https://github.com/nvim-neotest/neotest'      },
+    { src = 'https://github.com/nvim-neotest/nvim-nio'     },
+    { src = 'https://github.com/nvim-lua/plenary.nvim'     },
+
+    -- Test adapters
+    { src = 'https://github.com/marilari88/neotest-vitest'     },
+    { src = 'https://github.com/nsidorenco/neotest-vstest'     },
+    { src = 'https://github.com/nvim-neotest/neotest-jest'     },
+    { src = 'https://codeberg.org/mmllr/neotest-swift-testing' },
+    { src = 'https://github.com/fredrikaverpil/neotest-golang' },
 
     -- LSP / DAP / Linter installation
     { src = 'https://github.com/mason-org/mason.nvim'                      },
@@ -46,7 +54,15 @@ vim.pack.add({
 require('nio')
 require('dap')
 require('dapui').setup({ })
-require('neotest').setup({ })
+require('neotest').setup({
+    adapters = {
+      require('neotest-jest'),
+      require('neotest-vitest'),
+      require('neotest-vstest'),
+      require('neotest-golang'),
+      require('neotest-swift-testing'),
+    }
+})
 
 require('lsp.config')
 require('pkg.config')
