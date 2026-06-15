@@ -2,6 +2,7 @@
 
 function system-update() {
 
+
   local red=$(tput setaf 1)
   local reset=$(tput sgr0)
   local green=$(tput setaf 2)
@@ -64,6 +65,7 @@ function system-update() {
       brew upgrade --dry-run
       brew upgrade --dry-run --cask
     else
+      brew upgrade
       brew bundle check || brew bundle install
     fi
   fi
