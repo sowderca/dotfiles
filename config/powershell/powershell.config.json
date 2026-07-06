@@ -1,1 +1,6 @@
-{"PSModulePath":"%PWD%/module:%HOME%/.local/share/powershell/Modules","Microsoft.PowerShell.ExecutionPolicy":"Unrestricted","ExperimentalFeatures":["PSErrorView","PSUnixFileStat","PSTernaryOperator","PSUpdatesNotification","PSUpdatesNotification","PSCoalescingOperators","PSForEachObjectParallel","PSPipelineChainOperators","PSNullConditionalOperators","PSImplicitRemotingBatching","PSCommandNotFoundSuggestion","Microsoft.PowerShell.Utility.PSGetError","PSDesiredStateConfiguration.InvokeDscResource","Microsoft.PowerShell.PSManageBreakpointsInRunspace","Microsoft.PowerShell.Utility.PSManageBreakpointsInRunspace","Microsoft.PowerShell.Utility.PSDebugRunspaceWithBreakpoints","PSAnsiRenderingFileInfo","PSLoadAssemblyFromNativeCode","PSNativeCommandArgumentPassing","PSNativePSPathResolution","PSSubsystemPluginModel"]}
+{
+  "PSModulePath": "%HOME%/.local/share/powershell/Modules",
+  "Microsoft.PowerShell.ExecutionPolicy": "Unrestricted",
+  "ExperimentalFeatures": [
+  ]
+}
