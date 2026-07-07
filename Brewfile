@@ -197,9 +197,7 @@ if OS.linux?
     flatpak 'community.pathofbuilding.PathOfBuilding'
 
     # This is in beta-ish...only used for work destiny.
-    unless installed? 'com.nvidia.geforcenow'
-      flatpak 'com.nvidia.geforcenow', remote: 'GForceNow', url: 'https://international.download.nvidia.com/GFNLinux/flat' 
-    end
+    flatpak 'com.nvidia.geforcenow', remote: 'GForceNow', url: 'https://international.download.nvidia.com/GFNLinux/flatpak/geforcenow.flatpakrepo'
 
   end
 end
