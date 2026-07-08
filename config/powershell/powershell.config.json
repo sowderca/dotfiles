@@ -2,5 +2,8 @@
   "PSModulePath": "%HOME%/.local/share/powershell/Modules",
   "Microsoft.PowerShell.ExecutionPolicy": "Unrestricted",
   "ExperimentalFeatures": [
+      "PSLoadAssemblyFromNativeCode",
+      "PSProfileDSCResource",
+      "PSSerializeJSONLongEnumAsNumber"
   ]
 }
