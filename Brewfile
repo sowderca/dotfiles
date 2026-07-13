@@ -4,7 +4,6 @@ $PERSONAL_MACHINE = `hostname`.include?('sowderca')
 
 $GO_DEV_TOOLS     = true
 $NODE_DEV_TOOLS   = true
-$RUST_DEV_TOOLS   = false
 $JAVA_DEV_TOOLS   = true
 $AZURE_DEV_TOOLS  = true
 $DOTNET_DEV_TOOLS = true
@@ -39,31 +38,28 @@ tap 'thoughtbot/formulae', trusted: true
 # Used alot for local prototyping.
 tap 'nats-io/nats-tools',  trusted: true
 
-tap 'isen-ng/dotnet-sdk-versions', trusted: true if OS.mac? and $DOTNET_DEV_TOOLS
-
 # Absolute garbage that we use at work.
 tap 'checkmarx/ast-cli', trusted: true
 
-brew 'go'
+brew 'go' # Go can self manage its versioning.
 brew 'mas' if OS.mac?
 brew 'krew'
-brew 'rust'
+brew 'rust' # I don't really write rust, but I do use some tooling written in rust itself, If I need to write rust, I can use rustup to manage it.
 
 brew 'gh'
 brew 'bat'
 brew 'hub'
 brew 'opa'
-brew 'rcm'
 brew 'fpp'
 brew 'pipx' if OS.mac?
 brew 'nmap'
 brew 'kind'
 brew 'tree'
 brew 'grpc'
+brew 'mise'
 brew 'serf'
 brew 'helm' if not OS.wsl?
-brew 'rbenv'
-brew 'rbenv'
+# brew 'rbenv'
 brew 'trash', link: true if OS.mac?
 brew 'neovim'
 brew 'hubble' if not OS.wsl?
@@ -90,10 +86,15 @@ if not OS.wsl?
   brew 'hashicorp/tap/terraform'
 end
 
+# Dapr
+brew 'dapr/tap/dapr-cli'
+
 # NATS tooling.
 brew 'nats-io/nats-tools/nsc'
 brew 'nats-io/nats-tools/nats'
 
+# I have an open PR out to fix this for linux.
+# SEE: https://github.com/teamookla/homebrew-speedtest/pull/8
 brew 'teamookla/speedtest/speedtest'
 
 # Trash work tooling
@@ -111,8 +112,6 @@ brew 'git-lfs'   if missing? 'git-lfs'
 brew 'fastfetch' if missing? 'fastfetch'
 
 # Java stuff.
-brew 'maven'     if $JAVA_DEV_TOOLS
-brew 'gradle'    if $JAVA_DEV_TOOLS
 brew 'ballerina' if $JAVA_DEV_TOOLS
 
 # .NET stuff.
@@ -122,15 +121,6 @@ brew 'nuget' if $DOTNET_DEV_TOOLS
 if not OS.wsl?
   krew 'aks'
   krew 'krew'
-end
-
-if $NODE_DEV_TOOLS and installed? 'nvm'
-  npm 'neovim'
-  npm 'firebase-tools'
-  # Work still uses global tooling in some automation...
-  npm '@angular/cli'
-  npm '@blackbaud-internal/sky-cli'
-  npm '@blackbaud-internal/skyux-cli'
 end
 
 # Go and go global binaries.

@@ -13,26 +13,27 @@ reset=$(tput sgr0)
 green=$(tput setaf 2)
 purple=$(tput setaf 5)
 
-for tool in git curl brew nvm; do
+for tool in git curl brew; do
   if builtin command -v $tool >/dev/null 2>&1; then
-      echo "✅ ${green}$tool is installed...${reset}"
+    echo "✅ ${green}$tool is installed...${reset}"
     continue
-  else
-    if [ $tool = "brew" ]; then
-      echo -e "${blue} Installing homebrew...${reset}\n"
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    elif [ $tool = "nvm" ]; then
-      if ! [[ -f ~/.nvm/nvm.sh ]]; then
-        echo -e "${blue} Installing nvm...${reset}\n"
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
-      fi
-    else
-      echo "❌ ${red}$tool is missing... it's required to setup and configure the machine.${reset}"
-    fi
+  fi
+
+  if [ "$tool" = "brew" ]; then
+    echo -e "${blue} Installing homebrew...${reset}\n"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+
+  if ! builtin command -v $tool >/dev/null 2>&1; then
+    echo "❌ ${red}$tool is missing... it's required to setup and configure the machine.${reset}"
+    exit 1
   fi
 done
 
-cd ~/.dotfiles || echo "Failed to change directory to ~/.dotfiles. Please check if the directory exists and try again." && exit 1
+if ! cd ~/.dotfiles; then
+  echo "Failed to change directory to ~/.dotfiles. Please check if the directory exists and try again."
+  exit 1
+fi
 
 echo -e "\n${purple}Setting up $os_type...${reset}\n"
 
@@ -58,6 +59,15 @@ brew bundle install --file=$brew_file
 echo -e "\n"
 
 pipx install argcomplete
+
+if builtin command -v mise >/dev/null 2>&1; then
+  mise trust ~/.dotfiles/mise.toml
+  mise install
+  mise dotfiles apply --yes
+else
+  echo "❌ ${red}mise is missing after brew bundle install.${reset}"
+  exit 1
+fi
 
 if ! [[ -d $ansible_local_roles ]]; then
   mkdir -p $ansible_local_roles

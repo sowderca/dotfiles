@@ -207,14 +207,8 @@ fi
 
 export PATH
 
-# NVM / Node.js
-[ -s "$NVM_DIR/nvm.sh" ]          && source "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-(($+commands[brew]))    && eval "$(brew shellenv)"
-(($+commands[jenv]))    && eval "$(jenv init -)"
-(($+commands[rbenv]))   && eval "$(rbenv init -)"
-(($+commands[metapac])) && eval "$(metapac completions --shell zsh)"
+(($+commands[brew])) && eval "$(brew shellenv)"
+(($+commands[mise])) && eval "$(mise activate zsh --shims)"
 
 eval "$(register-python-argcomplete pipx)"
 

@@ -1,0 +1,91 @@
+[settings]
+ruby.compile = false
+dotfiles.root = "~/.dotfiles"
+dotfiles.default_mode = "symlink"
+idiomatic_version_file_enable_tools = ["npm", "node", "ruby", "dotnet"]
+
+[tools]
+# Languages
+ruby = "latest"
+node = "latest"
+rust = "latest"
+java = "
+dotnet = "latest"
+powershell = "latest"
+
+# tooling
+maven = "latest"
+gradle = "latest"
+
+[tools.swift]
+# Xcode handles the installation of Swift on macOS, so we only need to install it on Linux.
+os = ["linux"]
+version = "latest"
+
+"gem:rake" = "latest"
+"gem:rspec" = "latest"
+"gem:neovim" = "latest"
+"gem:rubocop" = "latest"
+"gem:bundler" = "latest"
+
+"cargo:tealdeer" = "latest"
+
+"npm:neovim" = "latest"
+"npm:@angular/cli" = "latest"
+
+# internal tooling, requires auth setup.
+{% if path is exists('~/.npmrc') %}
+"npm:@blackbaud-internal/sky-cli" = "latest"
+"npm:@blackbaud-internal/skyux-cli" = "latest"
+{% endif %}
+
+# .NET
+# Standard tools.
+"dotnet:dotnet-ef" = "latest"
+"dotnet:dotnet-sos" = "latest"
+"dotnet:dotnet-repl" = "latest"
+"dotnet:dotnet-dump" = "latest"
+"dotnet:dotnet-trace" = "latest"
+"dotnet:dotnet-stack" = "latest"
+"dotnet:dotnet-gcdump" = "latest"
+"dotnet:dotnet-format" = "latest"
+"dotnet:dotnet-symbol" = "latest"
+"dotnet:dotnet-monitor" = "latest"
+"dotnet:dotnet-counters" = "latest"
+"dotnet:dotnet-coverage" = "latest"
+"dotnet:dotnet-dsrouter" = "latest"
+"dotnet:dotnet-outdated-tool" = "latest"
+"dotnet:dotnet-debugger-extensions" = "latest"
+
+# Extra tools
+"dotnet:ilspycmd" = "latest"
+"dotnet:aspire.cli" = "latest"
+
+[dotfiles]
+# ruby.
+"~/.gemrc" = { }
+"~/.rspec" = { }
+
+# vim / neovim.
+"~/.vimrc" = { }
+
+# zsh
+"~/.zshrc" = { }
+"~/.zshenv" = { }
+
+# wget
+"~/.wgetrc" = { }
+
+# tmux
+"~/.tmux.conf" = { }
+
+# git 
+"~/.gitconfig" = { }
+"~/.commit.template" = { }
+
+# hushlogin
+"~/.hushlogin" = { }
+
+# symlink directories
+"~/.config"    = { source = "config",    mode = "symlink-each" }
+"~/.local/bin" = { source = "local/bin", mode = "symlink-each" }
