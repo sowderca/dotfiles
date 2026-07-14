@@ -1,0 +1,18 @@
+# syntax=docker/dockerfile:1
+
+ARG CACHYOS_IMAGE=ghcr.io/cachyos/cachyos:latest
+FROM ${CACHYOS_IMAGE}
+
+RUN pacman -Syu --noconfirm \
+    bash \
+    curl \
+    git \
+    sudo \
+    ca-certificates \
+  && pacman -Scc --noconfirm
+
+WORKDIR /root/.dotfiles
+COPY . /root/.dotfiles
+
+# Container testing default: validate setup preflight only.
+CMD ["bash", "/root/.dotfiles/setup.sh", "--check", "--no-color"]

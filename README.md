@@ -1,17 +1,42 @@
 # dotfiles
 
-Machine configuration for macOS/Linux using Homebrew, Ansible (including AUR on Arch), and mise for runtime + dotfile management.
+Machine configuration for macOS/Linux (including WSL) using Homebrew, Ansible (including AUR on Arch), and mise for runtime + dotfile management.
 
 ## Bootstrapping
 
 1. Clone this repository to `~/.dotfiles`.
-2. Run:
+2. Run (from any shell):
 
 ```sh
-~/.dotfiles/setup.sh
+bash ~/.dotfiles/setup.sh
 ```
 
-`setup.sh` installs Homebrew dependencies, installs mise, applies runtimes/tools from `mise.toml`, applies dotfiles with `mise dotfiles apply`, and then runs the Ansible playbook.
+`setup.sh` is phase-driven and idempotent. It runs:
+
+1. `bootstrap` (base tooling + Homebrew)
+2. `packages` (Brewfile)
+3. `toolchains` (`mise trust/install`)
+4. `dotfiles` (`mise dotfiles apply`)
+5. `config-management` (Ansible)
+
+Useful modes:
+
+```sh
+# preflight only (no changes)
+bash ~/.dotfiles/setup.sh --check
+
+# preview actions
+bash ~/.dotfiles/setup.sh --dry-run
+
+# run a single phase
+bash ~/.dotfiles/setup.sh --phase dotfiles
+
+# run from a phase onward
+bash ~/.dotfiles/setup.sh --from-phase toolchains
+
+# resume after a failed run
+bash ~/.dotfiles/setup.sh --resume
+```
 
 ## Runtime/tool management (mise)
 
@@ -44,3 +69,26 @@ Dotfile mappings are declared in `mise.toml` under `[dotfiles]`.
 ## Linux packages and AUR
 
 Ansible remains the package orchestration path for Linux machine setup/AUR packages via `setup.yaml`.
+
+## Containerized CachyOS preflight testing
+
+For quick CI/local validation without a full VM:
+
+```sh
+docker build -f Dockerfile.cachyos -t dotfiles-cachyos-test .
+docker run --rm dotfiles-cachyos-test
+```
+
+Override image if needed:
+
+```sh
+docker build -f Dockerfile.cachyos \
+  --build-arg CACHYOS_IMAGE=ghcr.io/cachyos/cachyos:latest \
+  -t dotfiles-cachyos-test .
+```
+
+Vagrant docker target:
+
+```sh
+vagrant up cachyos-docker --provider=docker
+```
