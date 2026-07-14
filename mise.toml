@@ -9,18 +9,13 @@ idiomatic_version_file_enable_tools = ["npm", "node", "ruby", "dotnet"]
 ruby = "latest"
 node = "latest"
 rust = "latest"
-java = "
+java = "latest"
 dotnet = "latest"
 powershell = "latest"
 
 # tooling
 maven = "latest"
 gradle = "latest"
-
-[tools.swift]
-# Xcode handles the installation of Swift on macOS, so we only need to install it on Linux.
-os = ["linux"]
-version = "latest"
 
 "gem:rake" = "latest"
 "gem:rspec" = "latest"
@@ -34,10 +29,8 @@ version = "latest"
 "npm:@angular/cli" = "latest"
 
 # internal tooling, requires auth setup.
-{% if path is exists('~/.npmrc') %}
-"npm:@blackbaud-internal/sky-cli" = "latest"
-"npm:@blackbaud-internal/skyux-cli" = "latest"
-{% endif %}
+"npm:@blackbaud-internal/sky-cli" = { "if path is exists" = "~/.npmrc", version = "latest" }
+"npm:@blackbaud-internal/skyux-cli" = { "if path is exists" = "~/.npmrc", version = "latest" }
 
 # .NET
 # Standard tools.
@@ -61,31 +54,36 @@ version = "latest"
 "dotnet:ilspycmd" = "latest"
 "dotnet:aspire.cli" = "latest"
 
+[tools.swift]
+# Xcode handles the installation of Swift on macOS, so we only need to install it on Linux.
+os = ["linux"]
+version = "latest"
+
 [dotfiles]
 # ruby.
-"~/.gemrc" = { }
-"~/.rspec" = { }
+"~/.gemrc" = {}
+"~/.rspec" = {}
 
 # vim / neovim.
-"~/.vimrc" = { }
+"~/.vimrc" = {}
 
 # zsh
-"~/.zshrc" = { }
-"~/.zshenv" = { }
+"~/.zshrc" = {}
+"~/.zshenv" = {}
 
 # wget
-"~/.wgetrc" = { }
+"~/.wgetrc" = {}
 
 # tmux
-"~/.tmux.conf" = { }
+"~/.tmux.conf" = {}
 
 # git 
-"~/.gitconfig" = { }
-"~/.commit.template" = { }
+"~/.gitconfig" = {}
+"~/.commit.template" = {}
 
 # hushlogin
-"~/.hushlogin" = { }
+"~/.hushlogin" = {}
 
 # symlink directories
-"~/.config"    = { source = "config",    mode = "symlink-each" }
+"~/.config" = { source = "config", mode = "symlink-each" }
 "~/.local/bin" = { source = "local/bin", mode = "symlink-each" }

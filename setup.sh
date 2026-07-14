@@ -1,4 +1,4 @@
-#/usr/bin/env zsh
+#!/usr/bin/env zsh
 
 # Basic variables.
 os_type="$(builtin command uname)"
@@ -20,7 +20,7 @@ for tool in git curl brew; do
   fi
 
   if [ "$tool" = "brew" ]; then
-    echo -e "${blue} Installing homebrew...${reset}\n"
+    echo -e "${blue}==> Installing homebrew...${reset}\n"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
 
@@ -35,7 +35,7 @@ if ! cd ~/.dotfiles; then
   exit 1
 fi
 
-echo -e "\n${purple}Setting up $os_type...${reset}\n"
+echo -e "\n${purple}==> Setting up $os_type...${reset}\n"
 
 if ! [[ -z $os_type ]]; then
   if [[ $os_type = *"Darwin"* ]]; then
@@ -45,17 +45,14 @@ if ! [[ -z $os_type ]]; then
   fi
 fi
 
-echo -e "\n${purple}Sourcing zsh configuration...${reset}\n"
-
-source ~/.dotfiles/zshrc
-source ~/.dotfiles/zshenv
+echo -e "\n${purple}==> Sourcing zsh configuration...${reset}\n"
 
 if [[ -f ~/.zplug/repos/chriskempson/base16-shell/colortest ]]; then
   ~/.zplug/repos/chriskempson/base16-shell/colortest
 fi
 
-brew bundle install --file=$brew_file
-
+echo -e "\n${purple}==> Installing mise...${reset}\n"
+brew install mise
 echo -e "\n"
 
 pipx install argcomplete
@@ -69,11 +66,13 @@ else
   exit 1
 fi
 
+brew bundle install --file=$brew_file
+
 if ! [[ -d $ansible_local_roles ]]; then
   mkdir -p $ansible_local_roles
-  pushd -q $ansible_local_roles
+  pushd -q $ansible_local_roles || echo "❌ ${red}unable to change directory to ${ansible_local_roles}.${reset}" && exit 1
   ansible-galaxy role init local_config
-  popd -q
+  popd -q || echo "❌ ${red}unable to return to previous directory.${reset}" && exit 1
 fi
 
 if ! [[ -f /etc/ansible/hosts ]]; then

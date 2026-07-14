@@ -1,5 +1,4 @@
 # vim: set ft=ruby: #
-
 $PERSONAL_MACHINE = `hostname`.include?('sowderca')
 
 $GO_DEV_TOOLS     = true
@@ -7,7 +6,6 @@ $NODE_DEV_TOOLS   = true
 $JAVA_DEV_TOOLS   = true
 $AZURE_DEV_TOOLS  = true
 $DOTNET_DEV_TOOLS = true
-
 
 # If there is a built-in API to do this via Homebrew that'd be great...
 def missing?(cmd) = `which #{cmd} 2>/dev/null`.empty?
@@ -145,13 +143,6 @@ if $GO_DEV_TOOLS
 
   go 'github.com/go-delve/delve/cmd/dlv'
 
-end
-
-cargo 'tealdeer' # This is newer version of tldr.
-
-# Rust and rust global binaries.
-if $RUST_DEV_TOOLS
-  brew 'rustup'
 end
 
 if OS.linux?
