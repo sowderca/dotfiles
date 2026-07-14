@@ -13,6 +13,17 @@ reset=$(tput sgr0)
 green=$(tput setaf 2)
 purple=$(tput setaf 5)
 
+
+function source_homebrew() {
+  if [[ $os_type = *"Darwin"* ]]; then
+    test -d /opt/homebrew/ && eval "$(/opt/homebrew/bin/brew shellenv)"
+  else
+    test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  fi
+}
+
+source_homebrew()
+
 for tool in git curl brew; do
   if builtin command -v $tool >/dev/null 2>&1; then
     echo "✅ ${green}$tool is installed...${reset}"
@@ -37,13 +48,7 @@ fi
 
 echo -e "\n${purple}==> Setting up $os_type...${reset}\n"
 
-if ! [[ -z $os_type ]]; then
-  if [[ $os_type = *"Darwin"* ]]; then
-    test -d /opt/homebrew/ && eval "$(/opt/homebrew/bin/brew shellenv)"
-  else
-    test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-  fi
-fi
+source_homebrew()
 
 echo -e "\n${purple}==> Sourcing zsh configuration...${reset}\n"
 
