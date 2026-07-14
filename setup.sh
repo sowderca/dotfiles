@@ -22,7 +22,7 @@ function source_homebrew() {
   fi
 }
 
-source_homebrew()
+source_homebrew
 
 for tool in git curl brew; do
   if builtin command -v $tool >/dev/null 2>&1; then
@@ -48,7 +48,7 @@ fi
 
 echo -e "\n${purple}==> Setting up $os_type...${reset}\n"
 
-source_homebrew()
+source_homebrew
 
 echo -e "\n${purple}==> Sourcing zsh configuration...${reset}\n"
 
