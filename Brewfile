@@ -295,7 +295,7 @@ if OS.wsl?
   # DevOps tooling
   winget 'Helm', id: 'Helm.Helm', source: 'winget'
   winget 'Hubble', id: 'Cilium.Hubble', source: 'winget'
-  winget 'Cilium CLI', id: 'Cilium.CLI', source: 'winget'
+  winget 'Cilium CLI', id: 'Cilium.CiliumCLI', source: 'winget'
   winget 'Kubernetes CLI', id: 'Kubernetes.kubectl', source: 'winget'
   winget 'Docker Desktop', id: 'Docker.DockerDesktop', source: 'winget'
 
