@@ -310,7 +310,7 @@ if OS.wsl?
   if $DOTNET_DEV_TOOLS
     # Install features manually for now... :(
     winget 'Visual Studio Enterprise 2026', id: 'Microsoft.VisualStudio.Enterprise', source: 'winget'
-    winget 'Microsoft SQL Server Management Studio 22', id: 'Microsoft.SQLServerManagementStudio.22', sourec: 'winget'
+    winget 'Microsoft SQL Server Management Studio 22', id: 'Microsoft.SQLServerManagementStudio.22', source: 'winget'
   end
 
   if $AZURE_DEV_TOOLS
