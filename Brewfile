@@ -23,10 +23,12 @@ end
 
 # MS cloud tooling.
 tap 'dapr/tap', trusted: true
-
 tap 'azure/azd', trusted: true
 tap 'azure/bicep', trusted: true
 tap 'azure/functions', trusted: true
+
+# Apple things.
+tap 'apple/apple', trusted: true
 
 # More corpo tooling.
 tap 'facebook/fb', trusted: true
