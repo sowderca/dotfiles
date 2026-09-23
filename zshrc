@@ -129,7 +129,7 @@ alias hackernews="clx"
 alias tmux="env TERM=screen-256color tmux"
 
 # An explicit check is needed here since git is used for configuration.
-(($+commands[hub]))  &&  alias git="hub"
+(($+commands[hub]))  && alias git="hub"
 
 # Explicitly check for neovim
 (($+commands[nvim])) && alias vim="nvim"
