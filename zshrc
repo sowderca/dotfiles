@@ -62,7 +62,7 @@ source "${HOME}/.local/bin/security.sh"
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # Load plugins
-zplug "lib/history", from:oh-my-zsh
+zplug "lib/history",    from:oh-my-zsh
 zplug "lib/completion", from:oh-my-zsh
 
 zplug "plugins/ng",        from:oh-my-zsh, as:plugin
