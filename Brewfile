@@ -120,6 +120,16 @@ brew 'ballerina' if $JAVA_DEV_TOOLS
 # .NET stuff.
 brew 'nuget' if $DOTNET_DEV_TOOLS
 
+# Azure stuff.
+if $AZURE_DEV_TOOLS
+  brew 'powershell'
+  brew 'azure/azd/azd'
+  brew 'azure/bicep/bicep' if OS.mac?
+  brew 'azure/functions/azure-functions-core-tools@4'
+
+  cask 'microsoft-azure-storage-explorer' if OS.mac?
+end
+
 # k8s cli plugins
 if not OS.wsl?
   krew 'aks'
@@ -236,16 +246,6 @@ if OS.mac?
     cask 'android-studio'
     cask 'microsoft-openjdk'
     cask 'jdk-mission-control'
-  end
-
-  # Azure stuff.
-  if $AZURE_DEV_TOOLS
-    brew 'powershell'
-    brew 'azure/azd/azd'
-    brew 'azure/bicep/bicep'
-    brew 'azure/functions/azure-functions-core-tools'
-
-    cask 'microsoft-azure-storage-explorer'
   end
 
   # Gaming things.
