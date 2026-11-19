@@ -15,8 +15,10 @@
         name:
           - yay
           - piper
+          - claude-code
           - wl-clipboard
           - gnome-builder
+          - claude-desktop
         state: present
 
     - name: 'Install AUR dependencies'

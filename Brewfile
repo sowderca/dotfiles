@@ -214,6 +214,9 @@ if OS.linux?
   end
 end
 
+cask 'devin-cli'
+cask 'coderabbit'
+
 # MacOS standard apps.
 if OS.mac?
 
@@ -232,9 +235,6 @@ if OS.mac?
   cask 'microsoft-teams'
   cask 'citrix-workspace' # Hopefully one day this can be removed...
   cask 'visual-studio-code'
-
-  # AI PR 'helper'
-  cask 'coderabbit'
 
   if $DOTNET_DEV_TOOLS
     cask 'dotnet-sdk'
@@ -283,6 +283,8 @@ if OS.mac?
 end
 
 if OS.wsl?
+
+  winget 'Anthropic.ClaudeCode'
 
   # Basics
   winget 'Edit', id: 'Microsoft.Edit', source: 'winget'
